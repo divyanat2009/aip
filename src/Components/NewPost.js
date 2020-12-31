@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Nav from './Nav';
 import FilterButtons from './FilterButtons';
-import '../_styles/Form.css'
+import '../_styles/Form.css';
+import ButtonRow from './ButtonRow.js';
 
 class NewPost extends Component{
     render(){
@@ -53,6 +54,8 @@ class NewPost extends Component{
                             <button type="reset">Cancel</button>
                         </div>
                     </form>
+                    <ButtonRow
+                      links ={[{'/dashboard':'Home'},{'/dashboard':'My Posts'},{'/new-post':'New Post'},{'/my-account':'My Account'}]}/>
                 </main>  
             </div>
             )            

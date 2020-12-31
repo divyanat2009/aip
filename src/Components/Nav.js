@@ -22,7 +22,7 @@ class Nav extends Component {
                 <div className="home-nav-links">
                     <button className="nav-link" >Sign-up</button>
                     <button className="nav-link" >Sign-in</button>
-                    <NavLink to={`/dashboard`}>Dashboard</NavLink>
+                    
                 </div>)
         }                         
         return (
