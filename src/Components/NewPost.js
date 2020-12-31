@@ -42,6 +42,10 @@ class NewPost extends Component{
                            <label htmlFor="event-date">Event Date</label>
                            <input type="date" name="event-date" id="event-date"/>
                         </div>
+                        <div class="form-field-group field-img">
+                            <label htmlFor="post-image">Upload Screenshot</label>
+                            <input type="image" name="post-image" id="post-image" alt="picture"/>
+                        </div>
                         </div>
 
                         <div className="form-buttons button-row">    

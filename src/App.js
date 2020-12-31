@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Route from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import Home from './Components/Home';
 import Dashboard from './Components/Dashboard';
 import LearnMore from './Components/LearnMore';
@@ -9,9 +9,7 @@ import MyAccount from './Components/MyAccount';
 import './_styles/App.css';
 
 class App extends Component{
-  constructor(props){
-    super(props);
-  }
+  
   render(){
     return(
       <div className="App">

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
     users:[{
       "user_id":"1",
       "username":"divya",   
@@ -67,7 +67,7 @@ export default {
       "content":"The Rheumatoid Arthritis show that provides help and inspiration for inflammatory arthritis patients to reduce symptoms and leave healthier, happier lives. Hosted by Clint Paddison, creator of the Paddison Program for Rheumatoid Arthritis.",
       "type":"podcast",
       "link":"https://paddisonprogram.podbean.com/",
-      "by":"Paddison",
+      "by":"Clint Paddison",
       "event_dates":"",
       "date_created":"December 29th 2020"            
   },{

@@ -4,7 +4,7 @@ import {NavLink, Link} from 'react-router-dom';
 class Nav extends Component {
     render() { 
         let List='';
-        if (this.props.pageType='interior'){
+        if (this.props.pageType==='interior'){
             List=(
                 <nav className="main-nav nav">
                     <h1><Link className="site-heading" to ={'/dashboard'}>The Autoimmune Protocol</Link></h1>
@@ -17,7 +17,7 @@ class Nav extends Component {
                       <li><NavLink to={`/`}>Start Screen</NavLink></li>
                     </ul>
                 </nav>)}
-        if (this.props.pageType='home'){
+        if (this.props.pageType==='home'){
             List = (
                 <div className="home-nav-links">
                     <button className="nav-link" >Sign-up</button>

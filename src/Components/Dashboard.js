@@ -13,7 +13,7 @@ class Dashboard extends Component{
                 <Nav pageType={'interior'}/>
                 </header>
                 <main>
-                    <p>Dashboard</p>
+                    
                     <FilterButtons/>
                     <SearchRow/>
                     <ResultList/>
