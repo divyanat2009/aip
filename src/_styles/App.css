@@ -28,7 +28,7 @@ h1 a{
 }
 
 nav, footer{
-  background-color:#152604;
+  background-color:#1e1e1f;
   color:#fff;   
 }
 .nav-list{
@@ -67,7 +67,7 @@ section{
   padding:10px;
 }
 section:nth-child(even){
-  background-color:#5B8C11;
+  background-color:#b1b1b1;
   color:#fff;
 }
 .individual-post-container{
@@ -79,7 +79,7 @@ section:nth-child(even){
   color:#000;
 }
 .individual-post-container:nth-child(odd){
-  background-color:#5B8C11;
+  background-color:#b1b1b1;
   color:#fff;
 }
 h1{

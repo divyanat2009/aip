@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Nav from './Nav';
 import FilterButtons from './FilterButtons';
 import '../_styles/Form.css';
-import ButtonRow from './ButtonRow.js';
+import ButtonRow from './BottonRow';
 
 class NewPost extends Component{
     render(){
