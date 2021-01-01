@@ -13,6 +13,24 @@ const Context = React.createContext({
       "date_created":"December 30th 2020",    
       }
     ],
+    bookmarks:[{
+      "bookmark_id":1,
+      "user_id":1,
+      "post_id":1,
+      "content":'Awesome post.....'
+    },
+    {
+      "bookmark_id":2,
+      "user_id":1,
+      "post_id":2,
+      "content":'I really loved this post.....'
+    },
+    {
+      "bookmark_id":3,
+      "user_id":1,
+      "post_id":10,
+      "content":'Nice one.....'
+    },],
       post:[ {
         "post_id":"1",
         "user_id":"1",
@@ -46,9 +64,10 @@ const Context = React.createContext({
       addBookmark:()=>{},
       deletePost:()=>{},      
       deleteBookmark:()=>{},
-      updateUser:()=>{},
-      addUser:()=>{},
-      deleteUser:()=>{},
+      updateUserAccount:()=>{},
+      addUserAccount:()=>{},
+      deleteUserAccount:()=>{},
+
 })
 
 export default Context;

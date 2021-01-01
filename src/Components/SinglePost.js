@@ -8,7 +8,7 @@ import { faBookmark, faPodcast, faBookOpen, faSeedling } from '@fortawesome/free
 class SinglePost extends Component{
     render(){
 
-        const{ username, type, title, recipe ,description, author, link} = this.props;
+        const{ username, type, title, by, link, content} = this.props;
         let listItem ='';
         if(type==='recipe'){
             listItem = (<li className="single-post-recipe-post" key={this.props.post_id}>
@@ -16,8 +16,8 @@ class SinglePost extends Component{
                     <span className="post-span post-icon"><FontAwesomeIcon icon={faSeedling} /></span>
                     <span className="post-span post-username">{username}</span>
                     <span className="post-span post-title">{title}</span>
-                    <span className="post-span post-recipe">{recipe}</span>
-                    <span className="post-span post-link"><a href={link}>Link</a></span>
+                    <span className="post-span post-description">{content}</span>
+                    <span className="post-span post-link"><a href={link}>Read More</a></span>
                 </div>
                 <div className="post-icons-buttons">
                   <span className="post-span post-icon"><FontAwesomeIcon icon={faBookmark} /></span>
@@ -31,8 +31,8 @@ class SinglePost extends Component{
                  <span className="post-span post-icon"><FontAwesomeIcon icon={faPodcast} /></span>
                     <span className="post-span post-username">{username}</span>
                     <span className="post-span post-title">{title}</span>
-                    <span className="post-span post-description">{description}</span>
-                    <span className="post-span post-link"><a href={link}>Link to listen</a></span>
+                    <span className="post-span post-description">{content}</span>
+                    <span className="post-span post-link"><a href={link}>Listen Here</a></span>
                 </div>
                 <div className="post-icons-buttons">
                     
@@ -46,8 +46,8 @@ class SinglePost extends Component{
                      <span className="post-span post-icon"><FontAwesomeIcon icon={faCalendarAlt} /></span>
                     <span className="post-span post-username">{username}</span>
                     <span className="post-span post-title">{title}</span>
-                    <span className="post-span post-description">{description}</span>
-                    <span className="post-span post-link"><a href={link}>Link to learn more</a></span>
+                    <span className="post-span post-description">{content}</span>
+                    <span className="post-span post-link"><a href={link}>Learn More</a></span>
                 </div>
                 <div className="post-icons-buttons">
                     
@@ -61,8 +61,9 @@ class SinglePost extends Component{
                     <span className="post-span post-icon"><FontAwesomeIcon icon={faBookOpen} /></span>
                     <span className="post-span post-username">{username}</span>
                     <span className="post-span post-title">{title}</span>
-                    <span className="post-span post-author">{author}</span>
-                    <span className="post-span post-description">{description}</span>
+                    <span className="post-span post-author">{by}</span>
+                    <span className="post-span post-description">{content}</span>
+                    <span className="post-span post-link"><a href={link}>Read More</a></span>
                 </div>
                 <div className="post-icons-buttons">
                     

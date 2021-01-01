@@ -45,7 +45,7 @@ class NewPost extends Component{
                         </div>
                         <div className="form-field-group field-img">
                             <label htmlFor="post-image">Upload Screenshot</label>
-                            <input type="image" name="post-image" id="post-image" alt="picture"/>
+                            <input type="image" name="post-image" id="post-image" alt="user-uploaded-image"/>
                         </div>
                         </div>
 
