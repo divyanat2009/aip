@@ -7,7 +7,7 @@ class UserSignUp extends Component{
             <div>
               <main>
                 <Link to={'/'}>Sign In</Link>
-                <form class="signup-form">
+                <form className="signup-form">
                 <h2>Sign-up to begin your AIP journey!</h2>
                 <label htmlFor="first-name">First Name</label>
                 <input placeholder='First Name' type="text" name='first-name' id='first-name'/>

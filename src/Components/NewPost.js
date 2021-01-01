@@ -15,35 +15,35 @@ class NewPost extends Component{
                   <form className="new-post-form" >
                     <FilterButtons/>
                       <div className="form-fields field-title">
-                        <div class="form-field-group">
+                        <div className="form-field-group">
                           <label htmlFor="title">Title or Name</label>
                           <input type="text" name="title" id="title" placeholder="The Autoimmune Protocol"/>
                         </div>
-                        <div class="form-field-group field-author">
+                        <div className="form-field-group field-author">
                           <label htmlFor="author">Author</label>
                           <input type="text" name="author" id="author" placeholder="Amy Myers"/>
                         </div>
-                        <div class="form-field-group field-recipe">
+                        <div className="form-field-group field-recipe">
                           <label htmlFor="recipe"></label>
                           <input type="text" name="recipe" id="recipe" placeholder="Perfect Pie Crust (AIP)"/>
                         </div>
-                        <div class="form-field-group field-description">
+                        <div className="form-field-group field-description">
                           <label htmlFor="descrip">Short Description</label>
                           <textarea type="textarea" name="descrip" id="descrip"/>
                         </div>
-                        <div class="form-field-group field-link">
+                        <div className="form-field-group field-link">
                            <label htmlFor="link">Link</label>
                            <input type="url" name="link" id="link" placeholder="https://www.amymyersmd.com/"/>
                         </div>
-                        <div class="form-field-group field-content">
+                        <div className="form-field-group field-content">
                            <label htmlFor="content">Content</label>
                            <textarea type="textarea" name="content" id="content"/>
                         </div>
-                        <div class="form-field-group field-date">
+                        <div className="form-field-group field-date">
                            <label htmlFor="event-date">Event Date</label>
                            <input type="date" name="event-date" id="event-date"/>
                         </div>
-                        <div class="form-field-group field-img">
+                        <div className="form-field-group field-img">
                             <label htmlFor="post-image">Upload Screenshot</label>
                             <input type="image" name="post-image" id="post-image" alt="picture"/>
                         </div>
