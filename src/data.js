@@ -2,17 +2,17 @@ module.exports = {
     users:[{
       "user_id":1,
       "username":"divya",   
-      "bookmark_ids":[1,2,10],
+      "bookmark_post_ids":[1,2,10],
       "date_created":"December 29th 2020",
     },{
       "user_id":2,
       "username":"natarajan",  
-      "bookmark_ids":[5,4,7],
+      "bookmark_post_ids":[5,4,7],
       "date_created":"December 30th 2020",    
     },{
       "user_id":3,
       "username":"divyanat", 
-      "bookmark_ids":[8,9],   
+      "bookmark_post_ids":[8,9],   
       "date_created":"December 29th 2020",      
       }],
 
@@ -154,6 +154,17 @@ module.exports = {
       "link":"https://www.thepaleomom.com/books/paleo-principles/",
       "event_dates":"",
       "date_created":"December 29th 2020"            
-  },
+  },{
+    "post_id":11,
+    "user_id":1,
+    "username":"divya",
+    "title":"Habit Formation and New Years Resolutions",
+    "by":"Sarah Ballantyne",
+    "content":"Sarah creates educational resources to help people regain their health through diet and lifestyle choices informed by the most current evidenced-based scientific research.",
+    "type":"lifestyle",
+    "link":"https://www.thepaleomom.com/habit-formation-new-years-resolutions/",
+    "event_dates":"",
+    "date_created":"January 2nd 2021"
+  }
  ],
 }

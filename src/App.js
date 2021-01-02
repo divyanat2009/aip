@@ -18,8 +18,7 @@ class App extends Component{
       currentUserInfo:data.users[0],
       posts:data.posts,
       bookmarks:data.bookmarks,
-      users:data.users, 
-      displayType:'all',        
+      users:data.users,            
       currentDisplay:{
         dashboard:{current_user:'default', current_post_type:'all'},
         bookmark_display:{current_user:'default', current_post_type:'all'}
@@ -27,14 +26,40 @@ class App extends Component{
     }//end of state
 
   }
+  //filter buttons function to update type of post displayed
+  updatePostType=(displayChange)=>{
+    console.log(`usertype being sent`)
+    console.log(`this update from app ran`)
+    const {currentDisplay} = this.state;
+   //change the display for type of user to display
+   if(displayChange ==='allUsers' || displayChange ==='byUser' || displayChange ==='user'){
+    currentDisplay.dashboard.current_user=displayChange;}
+   //changes the display for type of post
+   if(displayChange ==='all' || displayChange ==='book' || displayChange === 'recipe' || displayChange ===
+    'podcast' || displayChange === 'event' || displayChange === 'lifestyle'){
+    currentDisplay.dashboard.current_post_type=displayChange;}
+      
+  this.setState({
+    currentDisplay:currentDisplay})
+  }
+
+  addPost=(newPost)=>{
+    console.log(`new post from addPost`);
+    console.log(newPost)
+    console.log(this.state.posts)
+    this.setState({
+      posts:[...this.state.posts, newPost]
+    })  
+  }
   render () {
     const contextValue={
       currentUserInfo:this.state.currentUserInfo,
       posts:this.state.posts,
       bookmarks:this.state.bookmarks,
       users:this.state.users,
-      displayType:this.state.displayType,
-      currentDisplay:this.state.currentDisplay
+      currentDisplay:this.state.currentDisplay,
+      updatePostType:this.updatePostType,
+      addPost: this.addPost
     }
     return (
       <div className="App">

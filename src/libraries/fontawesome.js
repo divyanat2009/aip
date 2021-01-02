@@ -1,6 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faBookmark, faPodcast, faSeedling, faLink } from '@fortawesome/free-solid-svg-icons';
-import { faHeart, faCalendarAlt, faLightbulb } from '@fortawesome/free-regular-svg-icons';
+import { faBookmark, faPodcast, faSeedling, faLink, faHeartbeat } from '@fortawesome/free-solid-svg-icons';
+import { faHeart, faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 
 library.add(
   faBookmark, 
@@ -9,5 +9,5 @@ library.add(
   faLink,
   faHeart,
   faCalendarAlt,
-  faLightbulb
+  faHeartbeat
 );

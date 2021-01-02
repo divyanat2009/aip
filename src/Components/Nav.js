@@ -20,9 +20,8 @@ class Nav extends Component {
         if (this.props.pageType==='home'){
             List = (
                 <div className="home-nav-links">
-                    <button className="nav-link" >Sign-up</button>
-                    <button className="nav-link" >Sign-in</button>
-                    
+                    <button className="nav-link" onClick={this.props.onSignUpInClick}>Sign-up</button>
+                    <button className="nav-link" onClick={this.props.onSignUpInClick} >Sign-in</button>
                 </div>)
         }                         
         return (

@@ -16,6 +16,7 @@ class SinglePost extends Component{
                     <span className="post-span post-icon"><FontAwesomeIcon icon={faSeedling} /></span>
                     <span className="post-span post-username">{username}</span>
                     <span className="post-span post-title">{title}</span>
+                    <span className="post-span post-artist">{by}</span>
                     <span className="post-span post-description">{content}</span>
                     <span className="post-span post-link"><a href={link}>Read More</a></span>
                 </div>
@@ -31,6 +32,7 @@ class SinglePost extends Component{
                  <span className="post-span post-icon"><FontAwesomeIcon icon={faPodcast} /></span>
                     <span className="post-span post-username">{username}</span>
                     <span className="post-span post-title">{title}</span>
+                    <span className="post-span post-artist">{by}</span>
                     <span className="post-span post-description">{content}</span>
                     <span className="post-span post-link"><a href={link}>Listen Here</a></span>
                 </div>
@@ -46,6 +48,7 @@ class SinglePost extends Component{
                      <span className="post-span post-icon"><FontAwesomeIcon icon={faCalendarAlt} /></span>
                     <span className="post-span post-username">{username}</span>
                     <span className="post-span post-title">{title}</span>
+                    <span className="post-span post-artist">{by}</span>
                     <span className="post-span post-description">{content}</span>
                     <span className="post-span post-link"><a href={link}>Learn More</a></span>
                 </div>

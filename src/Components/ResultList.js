@@ -12,9 +12,8 @@ class ResultList extends Component{
       let users=this.context.users;
       let currentDisplay= this.context.currentDisplay;
       let currentUserId = this.context.currentUserInfo.user_id;
-
-      let displayType = this.context.displayType;
-      let filteredResults = FilterPosts(posts, currentUserId, users, displayType, currentDisplay);
+      
+      let filteredResults = FilterPosts(posts, currentUserId, users, currentDisplay);
       console.log(filteredResults);
         
     return(
