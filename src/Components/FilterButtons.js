@@ -6,7 +6,6 @@ import '../_styles/filter.css';
 import Context from '../Context';
 import { Link } from 'react-router-dom';
 
-
 class FilterButtons extends Component{
     static defaultProps ={
         buttonInfo:[],
@@ -27,7 +26,7 @@ class FilterButtons extends Component{
                  key={i} 
                  to={link}
                  aria-label={`button-access ${ariaLabel}`}
-                 onClick={e=>this.context.updatePostType(displayChange)}
+                 onClick={e=>{this.context.updatePostType(displayChange);}}
                  className="button-icon-link">
         <FontAwesomeIcon className="filter-icon" icon={iconType} />
         </Link>);

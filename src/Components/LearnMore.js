@@ -6,7 +6,7 @@ class LearnMore extends Component{
     render(){
       return(
           <div>
-              <Nav pageType={'interior'}/>
+            <Nav pageType={'interior'}/>
               <main>
               <p>Learn More</p>
               <p>This will contain what AIP is and how to begin using the app</p>
@@ -15,7 +15,6 @@ class LearnMore extends Component{
               </main>
           </div>
       )
-
-    }
+   }
 }
 export default LearnMore;

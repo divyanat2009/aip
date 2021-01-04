@@ -8,6 +8,7 @@ import NewPost from './Components/NewPost';
 import BookmarkPage from './Components/BookmarkPage';
 import MyAccount from './Components/MyAccount';
 import Context from './Context';
+import config from './config';
 import './_styles/App.css';
 import data from './data';
 
@@ -15,7 +16,9 @@ class App extends Component{
   constructor(props){
     super(props);
     this.state={
-      currentUserInfo:data.users[0],
+      currentUserInfo:{ "user_id":1,
+                        "username":"divyanat",  
+                        "fullname":"Divya Natarajan"},
       posts:data.posts,
       bookmarks:data.bookmarks,
       users:data.users,            
@@ -28,29 +31,110 @@ class App extends Component{
   }
   //filter buttons function to update type of post displayed
   updatePostType=(displayChange)=>{
-    console.log(`usertype being sent`)
-    console.log(`this update from app ran`)
-    const {currentDisplay} = this.state;
-   //change the display for type of user to display
-   if(displayChange ==='allUsers' || displayChange ==='byUser' || displayChange ==='user'){
-    currentDisplay.dashboard.current_user=displayChange;}
-   //changes the display for type of post
-   if(displayChange ==='all' || displayChange ==='book' || displayChange === 'recipe' || displayChange ===
-    'podcast' || displayChange === 'event' || displayChange === 'lifestyle'){
-    currentDisplay.dashboard.current_post_type=displayChange;}
+    const {currentDisplay,currentUserInfo} = this.state;
+    let currentUserId = currentUserInfo.user_id;
+    //change the posts displayed depending on type of user selected
+    if(displayChange ==='allUsers' || displayChange ==='byUser' || displayChange ==='user'){
+      currentDisplay.dashboard.current_user=displayChange;
+      this.getPostsByUser(displayChange,currentUserId)
+    }
+    //changes the display for type of post
+    if(displayChange ==='all' || displayChange ==='book' || displayChange === 'lifestyle' || displayChange ===
+      'podcast' || displayChange === 'event' || displayChange === 'recipe'){
+      currentDisplay.dashboard.current_post_type=displayChange;
+  }  
       
   this.setState({
     currentDisplay:currentDisplay})
   }
 
   addPost=(newPost)=>{
-    console.log(`new post from addPost`);
-    console.log(newPost)
-    console.log(this.state.posts)
     this.setState({
-      posts:[...this.state.posts, newPost]
+    posts:[...this.state.posts, newPost]
     })  
   }
+  updatePostsDisplayed=(posts)=>{
+    this.setState({
+      posts:posts
+    })
+  }
+  getPostsByUser=(userToDisplay,currentUserId)=>{
+    console.log(`this is the userToDisplay from Getposts ${userToDisplay} ${currentUserId}`)
+    let url = `${config.API_DEV_ENDPOINT}/posts`
+
+    currentUserId = this.state.currentUserInfo.user_id
+
+    if(userToDisplay==='all'){
+      url = `${config.API_DEV_ENDPOINT}/posts`
+      console.log(url)
+    }
+    else if(userToDisplay==='user'){
+        url = `${config.API_DEV_ENDPOINT}/posts?userid=${currentUserId}`
+        console.log(url)
+      }
+    else {
+      url = `${config.API_DEV_ENDPOINT}/posts?userid=${userToDisplay}`
+      console.log(url)
+    }
+
+    fetch(url,{
+        method:'GET',
+        header:{
+        'content-type':'application/json',
+        // 'Authorization':`Bearer ${config.API_KEY}`
+        },
+    })
+    .then(res=>{
+        if(!res.ok){
+        throw new Error('Something went wrong, please try again')
+        }
+        return res.json()
+    })
+    .then(postdata=>{
+      console.log(postdata);
+      this.updatePostType('all');
+      this.updatePostsDisplayed(postdata)
+    })
+    .catch(err=>{
+      this.setState({
+        error:err.message
+      });
+    })
+}
+
+getUsers=()=>{
+  fetch(`${config.API_DEV_ENDPOINT}/users`,{
+    method:'GET',
+    header:{
+      'content-type':'application/json',
+     // 'Authorization':`Bearer ${config.API_KEY}`
+    },
+  })
+  .then(res=>{
+    if(!res.ok){
+      throw new Error('Something went wrong, please try again')
+    }
+    return res.json()
+  })
+  .then(userdata=>{
+   console.log(userdata)
+    this.setState({
+      users:userdata
+    })
+  })
+  .catch(err=>{
+    this.setState({
+      error:err.message
+    })
+  })
+}
+componentDidMount(){
+  this.setState({error:null})
+  //getting users
+  this.getUsers();
+}
+
+
   render () {
     const contextValue={
       currentUserInfo:this.state.currentUserInfo,
@@ -59,7 +143,9 @@ class App extends Component{
       users:this.state.users,
       currentDisplay:this.state.currentDisplay,
       updatePostType:this.updatePostType,
-      addPost: this.addPost
+      updatePostsDisplayed:this.updatePostsDisplayed,
+      addPost:this.addPost,
+      getPostsByUser:this.getPostsByUser
     }
     return (
       <div className="App">

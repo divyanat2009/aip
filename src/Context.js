@@ -84,7 +84,8 @@ const Context = React.createContext({
       addUserAccount:()=>{},
       deleteUserAccount:()=>{},
       updatePostType:()=>{},
-
+      updatePostsDisplayed:()=>{},
+      getPostsByUser:()=>{}
 })
 
 export default Context;

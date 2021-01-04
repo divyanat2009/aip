@@ -20,8 +20,8 @@ class ButtonRow extends Component{
       let buttons=this.props.links;
       const Buttons = buttons.map((linkObject,i) => {
           const url = Object.keys(linkObject)[0];
-          const lable = Object.values(linkObject)[0]
-          return (<Link key={i} to={url} className="button-link">{lable}</Link>)
+          const label = Object.values(linkObject)[0]
+          return (<Link key={i} to={url} className="button-link">{label}</Link>)
       }
       )
     return(

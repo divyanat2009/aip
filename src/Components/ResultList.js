@@ -8,14 +8,11 @@ class ResultList extends Component{
   static contextType= Context;
     render(){
       let posts=this.context.posts;
-      console.log(posts);
-      let users=this.context.users;
-      let currentDisplay= this.context.currentDisplay;
-      let currentUserId = this.context.currentUserInfo.user_id;
+      //console.log(posts);
       
-      let filteredResults = FilterPosts(posts, currentUserId, users, currentDisplay);
-      console.log(filteredResults);
-        
+      let currentDisplay= this.context.currentDisplay;
+      let filteredResults = FilterPosts(posts, currentDisplay);
+      //console.log(filteredResults);  
     return(
       <section className="results-list">
       <ul className="result-list">

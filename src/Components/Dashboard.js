@@ -38,8 +38,7 @@ class Dashboard extends Component{
                  {aria_label:'my account',icon_type:faIdCard, link:'/my-account',display_change:'all'},
                  {aria_label:'add new post',icon_type:faPlusSquare, link:'/new-post', display_change:'all'}
               ]}
-
-                    />
+              />
           </footer>
         </div>
       )

@@ -121,7 +121,7 @@ class NewPost extends Component{
 
       if (!regexp.test(link))
       {
-          return 'Please enter a valid url'
+        return 'Please enter a valid url'
       }
   
   }
@@ -185,7 +185,7 @@ class NewPost extends Component{
                             </div>
                             <div className={`form-field-group field-link ${areTypeSpecificFieldsVisible['link'] ? "" : " hidden"} `}>
                                 <label htmlFor="link">Link*</label>
-                                <input type="url" name="link" id="link" placeholder="http://someamazingsite.com"
+                                <input type="url" name="link" id="link" placeholder="https://www.mayaangelou.com/"
                                     onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                             </div>
                             {this.state.inputs.link.touched  && (<ValidationError message={linkError}/>)}

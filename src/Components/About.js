@@ -3,16 +3,20 @@ import React, { Component } from 'react';
 class About extends Component{
     render(){
         return(
-            <main>
-                <section className="about">
-                    <h2>What is Autoimmune Protocol?</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                </section>
-                <section className="learnmore">
-                    <h2>AIP Diet</h2>
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                </section>
-            </main>
+          <main>
+            <section className="about">
+              <h2>What is Autoimmune Protocol?</h2>
+              <p>At their core, all autoimmune conditions are the result of your immune system attacking your own body. And they’re all connected by one common element: chronic inflammation. The five factors that I’ve identified that lead to chronic inflammation are diet, leaky gut, toxin exposure, infections, and chronic stress, or a combination of them. Whether you’re dealing with symptoms like digestive issues or dry eyes, or a full-blown autoimmune disease such as lupus or rheumatoid arthritis, you can find help here in reducing the inflammatory factors in your life and taking back control of your health.
+              The Autoimmune Protocol, abbreviated AIP, is a complementary approach to chronic disease management focused on providing the body with the nutritional resources required for immune regulation, gut health, hormone regulation and tissue healing while removing inflammatory stimuli from both diet and lifestyle.  
+              </p>
+            </section>
+            <section className="learnmore">
+              <h2>AIP Diet</h2>
+              <p>The AIP diet provides balanced and complete nutrition while avoiding processed and refined foods and empty calories. The AIP lifestyle encourages sufficient sleep, stress management and activity as these are important immune modulators.
+                 
+              </p>
+            </section>
+          </main>
         )
     }
 }
