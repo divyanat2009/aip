@@ -4,6 +4,7 @@ import FilterButtons from './FilterButtons';
 import FilterButtonsForm from './FilterButtonsForm';
 import Context from '../Context'
 import '../_styles/Form.css';
+import config from '../config'
 import ValidationError from './ValidationError'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faPlusSquare, faIdCard, faSmile  } from '@fortawesome/free-regular-svg-icons';
@@ -86,9 +87,8 @@ class NewPost extends Component{
 
   updateChange=(inputValue, id)=>{
     const {inputs} = this.state;
-    if(this.state.fieldType==='book'&& id==='by'){
-      id='author'
-    }
+    //console.log(inputs)
+    
     inputs[id]={value:inputValue,touched:true}
     this.setState({inputs:inputs})
     this.checkDisableSubmit();
@@ -129,22 +129,51 @@ class NewPost extends Component{
   handleSubmit=(e)=>{
         e.preventDefault();
         const {inputs, fieldType}=this.state;
-
+        console.log(inputs)
         let newPost = {
-        post_id:5,
-        user_id:2,
-        username:'natarajan',
-        type:fieldType,
-        date_created:"December 29th 2020",
-        title:inputs.title.value,
-        link:inputs.link.value,
-        content:inputs.content.value,
-        by:inputs.by.value,
-        event_dates:inputs.event_dates.value}
-       
-        this.context.addPost(newPost)
-  }
+            user_id:1,
+            post_type:fieldType,
+            title:inputs.title.value,
+            link:inputs.link.value,
+            content:inputs.content.value,
+            by:inputs.by.value}
+            console.log(newPost)
 
+            let url = `${config.API_DEV_ENDPOINT}/posts`
+    
+            fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(newPost),
+                headers: {
+                  'content-type': 'application/json',
+                 // 'authorization': `Bearer ${config.API_KEY}`
+                }
+              })
+                .then(res => {
+                  if (!res.ok) {
+                    // get the error message from the response,
+                    return res.json().then(error => {
+                      // then throw it
+                      throw error
+                    })
+                  }
+                  return res.json()
+                })
+                .then(post => {
+                // title.value = ''
+                 // url.value = ''
+                 // description.value = ''
+                  //rating.value = ''
+                  console.log(`this is the new post from res`)
+                  console.log(post)
+                  this.props.history.push('/dashboard')
+                  this.context.addPost(newPost)
+                  //this.props.onAddBookmark(data)
+                })
+                .catch(error => {
+                  this.setState({ error })
+                })
+  }
   render(){
         const { areTypeSpecificFieldsVisible } = this.state;
         const contentError = this.validateContent();
@@ -208,7 +237,8 @@ class NewPost extends Component{
                         </div>                            
                         <div className="form-buttons button-row">    
                             <button type="submit" disabled={
-                                    this.state.submitDisabled || this.validateLink()}>
+                                    //this.state.submitDisabled || this.validateLink()}
+                                    this.state.submitDisabled}>
                                 Post</button>
                             <button type="reset">Cancel</button>
                         </div>                          

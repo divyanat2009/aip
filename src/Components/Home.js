@@ -40,7 +40,7 @@ render(){
         gotoLearnMore = {this.gotoLearnMore}/>
         <header className="header-home">
           <h1>The Autoimmune Solution</h1>
-          <h2 className="tagline">Some tagline here</h2>
+          <h2 className="tagline">Take back your life for good</h2>
           <button className="button" onClick={this.learnMore}>Learn More</button>
           <button className="button" onClick={this.signUpPopUp}>Start</button>
         </header>

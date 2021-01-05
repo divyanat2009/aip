@@ -47,7 +47,19 @@ class App extends Component{
   this.setState({
     currentDisplay:currentDisplay})
   }
-
+  updateUsernameToDisplay=(name)=>{
+    const {currentDisplay} = this.state;
+    if(name==='allUsers'){
+      currentDisplay.user_posts_displayed="all users"
+    }
+    else if(name==='user'){
+      currentDisplay.user_posts_displayed="your own"
+    }
+    else{
+    currentDisplay.user_posts_displayed=name}
+    this.setState({
+      currentDisplay:currentDisplay})
+  }
   addPost=(newPost)=>{
     this.setState({
     posts:[...this.state.posts, newPost]
@@ -58,13 +70,22 @@ class App extends Component{
       posts:posts
     })
   }
+  deletePost=(postId)=>{
+    const newPosts = this.state.posts.filter(post=>
+      post.post_id !== postId)
+      console.log(`this is the posts after delete`)
+    console.log(newPosts)
+    this.setState({
+      posts:newPosts
+    })
+  }
   getPostsByUser=(userToDisplay,currentUserId)=>{
     console.log(`this is the userToDisplay from Getposts ${userToDisplay} ${currentUserId}`)
     let url = `${config.API_DEV_ENDPOINT}/posts`
 
     currentUserId = this.state.currentUserInfo.user_id
 
-    if(userToDisplay==='all'){
+    if(userToDisplay==='allUsers'){
       url = `${config.API_DEV_ENDPOINT}/posts`
       console.log(url)
     }
@@ -145,7 +166,9 @@ componentDidMount(){
       updatePostType:this.updatePostType,
       updatePostsDisplayed:this.updatePostsDisplayed,
       addPost:this.addPost,
-      getPostsByUser:this.getPostsByUser
+      getPostsByUser:this.getPostsByUser,
+      updateUsernameToDisplay:this.updateUsernameToDisplay,
+      deletePost:this.deletePost,
     }
     return (
       <div className="App">

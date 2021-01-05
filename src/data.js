@@ -17,52 +17,16 @@ module.exports = {
       }],
 
     bookmarks:[{
-        "bookmark_id":1,
-        "user_id":1,
-        "post_id":1,
-        "content":'I really loved this post.....'
-     },
-     {
-        "bookmark_id":2,
-        "user_id":1,
-        "post_id":2,
-        "content":'I really loved this post.....'
-     },
-     {
-        "bookmark_id":3,
-        "user_id":1,
-        "post_id":10,
-        "content":'I really loved this post.....'
-     },
-     {
-        "bookmark_id":4,
-        "user_id":2,
-        "post_id":5,
-        "content":'I really loved this post.....'
-     },
-     {
-        "bookmark_id":5,
-        "user_id":2,
-        "post_id":4,
-        "content":'I really loved this post.....'
-     },
-     {
-        "bookmark_id":6,
-        "user_id":2,
-        "post_id":7,
-        "content":'I really loved this post.....'
-     },
-     {
-        "bookmark_id":7,
-        "user_id":3,
-        "post_id":8,
-        "content":'I really loved this post.....'
-     },
-     {
-        "bookmark_id":8,
-        "user_id":3,
-        "post_id":9,
-        "content":'I really loved this post.....'
+      "username":"divya",
+      "title":"",
+      "link":"",
+      "event_dates":"",
+      "by":"",
+      "content":"My inner growth propelled me to by my own 'I'-to be an authentic woman who was contained in herself, who chose and determined and handled her life from her own genuine spiritual center  -Sue Monk Kidd",
+      "type":"lifestyle",
+      "date_created":"January 5th 2021" ,
+      "bookmark_content":"",
+      "bookmark_id":1           
      },
      ],  
 

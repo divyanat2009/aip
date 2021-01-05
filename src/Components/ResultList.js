@@ -7,16 +7,19 @@ import Context from '../Context';
 class ResultList extends Component{
   static contextType= Context;
     render(){
-      let posts=this.context.posts;
+      let posts=this.props.posts;
       //console.log(posts);
+      let filteredResults = posts;
       
       let currentDisplay= this.context.currentDisplay;
-      let filteredResults = FilterPosts(posts, currentDisplay);
+      filteredResults = FilterPosts(posts, currentDisplay)
       //console.log(filteredResults);  
     return(
       <section className="results-list">
+        <h2>{this.props.heading}</h2>
       <ul className="result-list">
-        {filteredResults.map((post, i) => <SinglePost key={i}{...post}/>)}
+        {filteredResults.map((post, i) => <SinglePost key={i}{...post}
+        postsToDisplay={this.props.postsToDisplay}/>)}
       </ul>
       </section>
     )

@@ -18,14 +18,10 @@ class SearchRow extends Component{
       this.setState({username:{value:inputUserName, touched:fieldtouched}})
     }
 
-    updateUsernameToDisplay=(name)=>{
-      this.setState({usernameToDisplay:name})
-    }
-
     handleReset=(e)=>{
       e.preventDefault();
       this.context.getPostsByUser('all');
-      this.updateUsernameToDisplay('aip users'); 
+      this.updateUsernameToDisplay('all'); 
       this.setState({error:null})
     }
 
@@ -39,7 +35,7 @@ class SearchRow extends Component{
     if(userid){
       // this.getPosts(userid)
       this.context.getPostsByUser(userid)
-      this.updateUsernameToDisplay(username);
+      this.context.updateUsernameToDisplay(username);
       search_username.value="";
     }
     else if(!userid){
@@ -50,7 +46,7 @@ class SearchRow extends Component{
     render(){
         return(
           <section className="search-row">
-            <p>You are currently viewing posts of {this.state.usernameToDisplay} </p>
+            <p>You are currently viewing posts of {this.context.currentDisplay.user_posts_displayed} </p>
           <form className="fsearch-form" onSubmit={e=>this.handleSearchSubmit(e)}>  
           <div>
             <label htmlFor="search_username">Search by username</label>
@@ -62,7 +58,6 @@ class SearchRow extends Component{
           <div className="error-message">{this.state.error}</div>
           </section>
         )
-
     }
 }
 

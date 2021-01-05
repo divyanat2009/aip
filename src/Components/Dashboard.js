@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import Nav from './Nav';
 import ResultList from './ResultList';
 import FilterButtons from './FilterButtons';
-import SearchRow from './SearchRow';
+//import SearchRow from './SearchRow';
 import Context from '../Context';
 import { faPlusSquare, faIdCard  } from '@fortawesome/free-regular-svg-icons';
 import { faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
+import SearchRow from './SearchRow';
 
 
 class Dashboard extends Component{
@@ -28,7 +29,10 @@ class Dashboard extends Component{
             ]}
             />
             <SearchRow/>
-            <ResultList/>
+            <ResultList
+            heading = {'Posts'}
+            postsToDisplay = {'posts'}
+            posts = {this.context.posts}/>
           </main>
           <footer>
             <FilterButtons
