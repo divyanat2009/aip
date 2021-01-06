@@ -3,8 +3,8 @@ import Nav from './Nav.js';
 import ResultList from './ResultList';
 import FilterButtons from './FilterButtons';
 import Context from '../Context';
-import { faCalendarAlt, faLightbulb, faPlusSquare, faIdCard  } from '@fortawesome/free-regular-svg-icons';
-import { faPodcast, faMusic, faBookOpen, faHome, faUser, faUsers, faUserFriends, faSeedling, faHeartbeat } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faPlusSquare, faIdCard  } from '@fortawesome/free-regular-svg-icons';
+import { faPodcast, faBookOpen, faHome, faUser, faSeedling, faHeartbeat } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -36,8 +36,7 @@ class BookmarkPage extends Component{
             </main>
             <footer>
             <FilterButtons
-                        buttonInfo={[
-                        {ariaLabel:'all users',icon_type:faUsers, link:'/dashboard',display_change:'allUsers'},
+                        buttonInfo={[                        
                         {aria_label:'my posts',icon_type:faUser, link:'/dashboard', display_change:'user'},
                         {aria_label:'my account',icon_type:faIdCard, link:'/my-account',display_change:'all'},
                         {aria_label:'add new post',icon_type:faPlusSquare, link:'/new-post', display_change:'all'}

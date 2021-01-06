@@ -16,9 +16,11 @@ startExploring = () => {
   };
 signUpPopUp=()=>{
   this.setState(prevState => ({ isBoxVisible: !prevState.isBoxVisible }));
+  this.props.history.push('/user-signup');
 }
 signUpInClick=()=>{
   this.setState(prevState => ({ isBoxVisible: !prevState.isBoxVisible }));
+  this.props.history.push('/my-account');
 }
 learnMore=()=>{
   if(this.state.isBoxVisible)
@@ -32,24 +34,18 @@ learnMore=()=>{
 }
 }
 render(){
-  const { isBoxVisible } = this.state;
+  //const { isBoxVisible } = this.state;
   return(            
     <div className="home">
-      <Nav pageType={'home'}
-        onSignUpInClick = {this.signUpInClick}
-        gotoLearnMore = {this.gotoLearnMore}/>
+      <Nav pageType={'home'} onSignUpPopUp = {this.signUpPopUp} onSignUpInClick = {this.signUpInClick} gotoLearnMore = {this.gotoLearnMore}/>      
         <header className="header-home">
-          <h1>The Autoimmune Solution</h1>
-          <h2 className="tagline">Take back your life for good</h2>
+          <h1>Welcome to The Autoimmune Solution</h1>
+          <h2 className="tagline">Your resource for nutritional science and lifestyle of the Autoimmune Diet.</h2>          
+          <p>This app was created to find positive thoughts, books, podcasts, recipes and events in the AIP Community.You can create your own posts and bookmark posts.</p>
           <button className="button" onClick={this.learnMore}>Learn More</button>
-          <button className="button" onClick={this.signUpPopUp}>Start</button>
+          <button className="button" onClick={this.startExploring}>Start</button>
         </header>
-        <main> 
-          <div className={`box ${isBoxVisible ? "" : "hidden"}`}>
-          <p>Thanks for your interest in AIP!</p><p>This is the Beta version so we are not yet allowing users to sign-up.</p>
-          <button className="button" onClick={this.startExploring}>Explore</button>
-          <button className="button" onClick = {e => this.learnMore()}>Learn More</button>
-          </div> 
+        <main>           
           <div ref={this.state.statsRef}></div> 
         <About/>
         </main>               

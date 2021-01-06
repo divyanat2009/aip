@@ -2,6 +2,16 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
 class UserSignUp extends Component{
+  state = {
+    isBoxVisible:false,
+    scrollPosition:0,
+    statsRef:React.createRef(),
+  };
+
+startExploring = () => {
+  this.setState(prevState => ({ isBoxVisible: !prevState.isBoxVisible }));
+  this.props.history.push('/dashboard');
+  };
     render(){
         return(
             <div>
@@ -20,7 +30,7 @@ class UserSignUp extends Component{
                 <label htmlFor="password">Password</label>
                 <input placeholder="*******" type="password" name='password' id='password1'/>
                 <button type="submit">Sign Up</button>
-                <button type="reset">Learn More</button>
+                <button type="learn-more" onClick={this.startExploring}>Learn More</button>
                 </form>
               <p>Thank you for your interest in our app. This is the beta version so you cannot create an account yet.</p>
               </main>

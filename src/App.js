@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
 import Home from './Components/Home';
 import Dashboard from './Components/Dashboard';
-import LearnMore from './Components/LearnMore';
 import UserSignUp from './Components/UserSignUp';
 import NewPost from './Components/NewPost';
 import BookmarkPage from './Components/BookmarkPage';
@@ -23,8 +22,9 @@ class App extends Component{
       bookmarks:data.bookmarks,
       users:data.users,            
       currentDisplay:{
-        dashboard:{current_user:'default', current_post_type:'all'},
-        bookmark_display:{current_user:'default', current_post_type:'all'}
+        type_posts_displayed:'all',
+        dashboard:{ current_post_type:'all'},
+        bookmark_display:{current_post_type:'all'}
       }
     }//end of state
 
@@ -47,6 +47,16 @@ class App extends Component{
   this.setState({
     currentDisplay:currentDisplay})
   }
+  updateBookmark=(bookmarkId, updatedContent)=>{  
+    const { bookmarks } = this.state;
+    bookmarks.map(bookmark=>{
+      if(bookmark.bookmark_id===bookmarkId) 
+      { bookmark.bookmark_content=updatedContent
+         return bookmark}
+        else {return bookmark}}
+    )  
+   // this.setState({bookmarks:newBookmarks})
+  }
   updateUsernameToDisplay=(name)=>{
     const {currentDisplay} = this.state;
     if(name==='allUsers'){
@@ -55,8 +65,6 @@ class App extends Component{
     else if(name==='user'){
       currentDisplay.user_posts_displayed="your own"
     }
-    else{
-    currentDisplay.user_posts_displayed=name}
     this.setState({
       currentDisplay:currentDisplay})
   }
@@ -65,6 +73,10 @@ class App extends Component{
     posts:[...this.state.posts, newPost]
     })  
   }
+  getBookmarkPostIds=(bookmarks)=>{
+    let currentUserBookmarkedPostIds = bookmarks.map(bookmark=>bookmark.post_id);
+    return currentUserBookmarkedPostIds;
+  }
   updatePostsDisplayed=(posts)=>{
     this.setState({
       posts:posts
@@ -72,30 +84,36 @@ class App extends Component{
   }
   deletePost=(postId)=>{
     const newPosts = this.state.posts.filter(post=>
-      post.post_id !== postId)
-      console.log(`this is the posts after delete`)
-    console.log(newPosts)
-    this.setState({
+      post.post_id !== postId)  
+      this.setState({
       posts:newPosts
     })
   }
-  getPostsByUser=(userToDisplay,currentUserId)=>{
-    console.log(`this is the userToDisplay from Getposts ${userToDisplay} ${currentUserId}`)
-    let url = `${config.API_DEV_ENDPOINT}/posts`
+  deleteBookmark=(bookmarkId)=>{
+    const newBookmarkPosts = this.state.bookmarks.filter(bookmark=>
+      bookmark.bookmark_id !== bookmarkId)    
+      this.setState({
+      bookmarks:newBookmarkPosts
+    })    
+  }
 
+  addBookmark=(newBookmarkPost)=>{    
+    this.setState({
+      bookmarks:[...this.state.bookmarks, newBookmarkPost]
+    })
+  }
+  getPostsByUser=(userToDisplay,currentUserId)=>{    
+    let url = `${config.API_ENDPOINT}/posts`
     currentUserId = this.state.currentUserInfo.user_id
 
     if(userToDisplay==='allUsers'){
-      url = `${config.API_DEV_ENDPOINT}/posts`
-      console.log(url)
+      url = `${config.API_ENDPOINT}/posts`    
     }
     else if(userToDisplay==='user'){
-        url = `${config.API_DEV_ENDPOINT}/posts?userid=${currentUserId}`
-        console.log(url)
-      }
+      url = `${config.API_ENDPOINT}/posts?userid=${currentUserId}`      
+    }
     else {
-      url = `${config.API_DEV_ENDPOINT}/posts?userid=${userToDisplay}`
-      console.log(url)
+      url = `${config.API_ENDPOINT}/posts?userid=${userToDisplay}`      
     }
 
     fetch(url,{
@@ -111,8 +129,7 @@ class App extends Component{
         }
         return res.json()
     })
-    .then(postdata=>{
-      console.log(postdata);
+    .then(postdata=>{      
       this.updatePostType('all');
       this.updatePostsDisplayed(postdata)
     })
@@ -124,7 +141,7 @@ class App extends Component{
 }
 
 getUsers=()=>{
-  fetch(`${config.API_DEV_ENDPOINT}/users`,{
+  fetch(`${config.API_ENDPOINT}/users`,{
     method:'GET',
     header:{
       'content-type':'application/json',
@@ -137,8 +154,7 @@ getUsers=()=>{
     }
     return res.json()
   })
-  .then(userdata=>{
-   console.log(userdata)
+  .then(userdata=>{   
     this.setState({
       users:userdata
     })
@@ -169,6 +185,9 @@ componentDidMount(){
       getPostsByUser:this.getPostsByUser,
       updateUsernameToDisplay:this.updateUsernameToDisplay,
       deletePost:this.deletePost,
+      addBookmark:this.addBookmark,
+      updateBookmark:this.updateBookmark,
+      deleteBookmark:this.deleteBookmark,
     }
     return (
       <div className="App">
@@ -178,8 +197,7 @@ componentDidMount(){
           <Route exact path="/bookmarks" component={BookmarkPage}/>
           <Route exact path="/user-signup" component={UserSignUp}/>
           <Route exact path="/new-post" component={NewPost}/>
-          <Route exact path="/my-account" component={MyAccount}/>
-          <Route exact path="/learn-more" component={LearnMore}/>
+          <Route exact path="/my-account" component={MyAccount}/>        
         </Context.Provider>
       </div>
     );

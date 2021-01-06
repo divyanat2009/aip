@@ -4,7 +4,7 @@ import config from '../config';
 
 function deletePostRequest(postId, callback){
     
-    let url = `${config.API_DEV_ENDPOINT}/posts/${postId}`;
+    let url = `${config.API_ENDPOINT}/posts/${postId}`;
     console.log(url)
     fetch(url,{
         method: 'DELETE',

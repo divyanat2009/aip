@@ -5,14 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faBookmark} from '@fortawesome/free-solid-svg-icons';
 
-function addBookmarkRequest(postId, currentUserId, callback){
+function addBookmarkRequest(allPostInfo, currentUserId, callback){
     
     let newBookmark = {
         user_id:currentUserId,
-        post_id:postId
+        post_id:allPostInfo.post_id
     }
-    let url = `${config.API_DEV_ENDPOINT}/bookmarks`;
-    console.log(url)
+    let newBookmarkPost = allPostInfo   
+    let url = `${config.API_ENDPOINT}/bookmarks`;    
+
     fetch(url,{
         method: 'POST',
         body:JSON.stringify(newBookmark),
@@ -28,15 +29,12 @@ function addBookmarkRequest(postId, currentUserId, callback){
         return res.json()
     })
     .then((bookmark) => {
-        console.log(bookmark)  ;
-        callback(bookmark);
-         //go to bookmark
-         console.log(`post call worked`)
+        newBookmarkPost = {...newBookmarkPost, bookmark_id:bookmark.id}        
+        callback(newBookmarkPost);          
     })
     .catch(error => {
-       callback(postId, error)
+       callback(error)
     })
-  console.log(`button clicked`)
 }
 
 export default function AddBookmark(props){
@@ -45,7 +43,7 @@ export default function AddBookmark(props){
       {(context)=>(
       <button className="bookmark-button post-icon"
        onClick={()=>{
-       addBookmarkRequest(props.postId,props.currentUserId,
+       addBookmarkRequest(props.allPostInfo,props.currentUserId,
        context.addBookmark);
       }}>
       <FontAwesomeIcon icon={faBookmark} />

@@ -35,7 +35,8 @@ const Context = React.createContext({
         "link":"https://www.amymyersmd.com/recipe/chocolate-skillet-cookie/",
         "by":"Amy Myers",
         "event_dates":"",
-        "date_created":"December 29th 2020"           
+        "date_created":"December 29th 2020",    
+        "image_path":''        
      },{
         "post_id":2,
         "user_id":2,
@@ -46,7 +47,8 @@ const Context = React.createContext({
         "link":"https://www.amymyersmd.com/autoimmunesolution/",
         "type":"book",
         "event_dates":"",
-        "date_created":"December 30th 2020"            
+        "date_created":"December 30th 2020",
+        "image_path":''             
      },{
         "post_id":3,
         "user_id":3,
@@ -57,7 +59,8 @@ const Context = React.createContext({
         "type":"podcast",
         "link":"https://paddisonprogram.podbean.com/",
         "event_dates":"",
-        "date_created":"December 29th 2020"            
+        "date_created":"December 29th 2020",
+        "image_path":''             
      }
     ],
     currentDisplay:{

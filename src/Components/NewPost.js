@@ -19,15 +19,14 @@ class NewPost extends Component{
       error:null,
       submitDisabled:true,
       fieldType:'recipe',
-      areTypeSpecificFieldsVisible:{'title':false, 'author':false, 'by':false,'link':false,'content':true,'dates':false},
+      areTypeSpecificFieldsVisible:{'title':false, 'author':false, 'by':false,'link':false,'content':true},
       inputs:{
       title:{value:"",touched:false},
       author:{value:"",touched:false},
       by:{value:"",touched:false},
       link:{value:"",touched:false},
       content:{value:"",touched:false},
-      event_dates:{value:"",touched:false},
-      post_image:{value:"",touched:false}}
+      post_image:{value:"",touched:false, file:""}}
     }//end of state
   }
   //updates the fields displayed depending on the type of post
@@ -46,6 +45,7 @@ class NewPost extends Component{
     Object.keys(inputs).forEach(key => {
      inputs[key].value="";
     });
+    inputs.post_image.file="";
         if(fieldTypeSelected==='book'){
             areTypeSpecificFieldsVisible['title']=true;
             areTypeSpecificFieldsVisible['by']=true;
@@ -66,8 +66,7 @@ class NewPost extends Component{
         else if(fieldTypeSelected==='event'){
             areTypeSpecificFieldsVisible['content']=true;
             areTypeSpecificFieldsVisible['link']=true;
-            areTypeSpecificFieldsVisible['title']=true;
-            areTypeSpecificFieldsVisible['dates']=true;
+            areTypeSpecificFieldsVisible['title']=true;        
         }
         else if(fieldTypeSelected==='recipe'){
            areTypeSpecificFieldsVisible['title']=true;
@@ -89,7 +88,13 @@ class NewPost extends Component{
     const {inputs} = this.state;
     //console.log(inputs)
     
-    inputs[id]={value:inputValue,touched:true}
+    if(id!=='post_image'){
+        inputs[id]={value:inputValue,touched:true}
+     }
+     else if(id==='post_image'){
+         console.log(inputValue[0])
+         inputs[id]={file:inputValue[0],touched:true}
+     }
     this.setState({inputs:inputs})
     this.checkDisableSubmit();
   }
@@ -134,79 +139,120 @@ validateLink(){
 
 handleSubmit=(e)=>{
     e.preventDefault();
-    const {inputs, fieldType}=this.state;
-    console.log(inputs)
-
-    if(inputs.post_image.value){
+    const {inputs, fieldType}=this.state;     
+    
+    let newPostWithImage = {
+        user_id:1,
+        post_type:fieldType,
+        title:inputs.title.value,
+        link:inputs.link.value,
+        content:inputs.content.value,
+        by:inputs.by.value,
+        image_path:''
+    }
+    let url = `${config.API_ENDPOINT}/posts`
+    if(inputs.post_image.file){
         let formData = new FormData();
-        const fileField = inputs.post_image.value;
+        const fileField = inputs.post_image.file;
         console.log(fileField)
         formData.append('image', fileField);
         console.log(formData)
 
-        let image_url = `${config.API_DEV_ENDPOINT}/upload`;
+        let image_url = `${config.API_ENDPOINT}/upload`;
         console.log(image_url)
 
         fetch(image_url, {
             method: 'POST',
-            body: formData
+            body: formData,
             })
-        .then(() => {
-            console.log(`called worked`)
-            //response.json()
+        .then(res => {
+           return res.json()
         })
-        .catch(error => console.error('Error:', error))
-        .then(response => console.log('Success:', JSON.stringify(response)))
+        .then(res => {
+            newPostWithImage.image_path = res.data.image;
+            console.log(newPostWithImage)
+           return  fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(newPostWithImage),
+                headers: {
+                  'content-type': 'application/json',
+                 // 'authorization': `Bearer ${config.API_KEY}`
+                }
+              })
+        })
+       .then(resp => {
+          if (!resp.ok) {
+          // get the error message from the response,
+            return resp.json().then(error => {
+            // then throw it
+            throw error
+            })
+          }
+           return resp.json()
+        })
+        .then(post => {
+                // title.value = ''
+                 // url.value = ''
+                 // description.value = ''
+                  //rating.value = ''
+                  console.log(`this is the new post from res`)
+                  console.log(post)
+                //  this.props.history.push('/dashboard')
+                //  this.context.addPost(newPost)
+                  //this.props.onAddBookmark(data)
+        })
+
+        .catch(error => {
+                    this.setState({ error })
+                  })    
     }    
-    
+else if(!inputs.post_image.file){  
   let newPost = {
     user_id:1,
     post_type:fieldType,
     title:inputs.title.value,
     link:inputs.link.value,
     content:inputs.content.value,
-    by:inputs.by.value}
-
-    console.log(newPost)
-
-    //let url = `${config.API_DEV_ENDPOINT}/posts`
-
-  /*  fetch(url, {
-        method: 'POST',
-        body: JSON.stringify(newPost),
-        headers: {
-          'content-type': 'application/json',
-         // 'authorization': `Bearer ${config.API_KEY}`
-        }
-      })
-        .then(res => {
-          if (!res.ok) {
-            // get the error message from the response,
-            return res.json().then(error => {
-              // then throw it
-              throw error
-            })
-          }
-          return res.json()
-        })
-        .then(post => {
-        // title.value = ''
-         // url.value = ''
-         // description.value = ''
-          //rating.value = ''
-          console.log(`this is the new post from res`)
-          console.log(post)
-          this.props.history.push('/dashboard')
-          this.context.addPost(newPost)
-          //this.props.onAddBookmark(data)
-        })
-        .catch(error => {
-          this.setState({ error })
-        })*/
+    by:inputs.by.value,
+    image_path:''
 }
+// console.log(newPost)
+fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(newPost),
+    headers: {
+    'content-type': 'application/json',
+    // 'authorization': `Bearer ${config.API_KEY}`
+    }  
+})
+.then(res => {
+    if (!res.ok) {
+        // get the error message from the response,
+        return res.json().then(error => {
+        // then throw it
+        throw error
+        })
+    }
+    return res.json()
+    })
+    .then(post => {
+    // title.value = ''
+    // url.value = ''
+    // description.value = ''
+    //rating.value = ''
+    console.log(`this is the new post from res`)
+    console.log(post)
+    this.props.history.push('/dashboard')
+    this.context.addPost(newPost)
+    //this.props.onAddBookmark(data)
+    })
+    .catch(error => {
+    this.setState({ error })
+    })
+}//end of else if
+}      
 
 render(){
-
     const { areTypeSpecificFieldsVisible } = this.state;
     const contentError = this.validateContent();
     const linkError = this.validateLink();
@@ -234,7 +280,7 @@ render(){
                     ref="form">
                     <div className="form-intro">
                         <p>Please use the buttons above to select the type of post you want to create and the form below to share some positivity with others.<FontAwesomeIcon className="filter-icon inline-block-icon" icon={faSmile} /></p>
-                        <h2>You can currently create a new {this.state.fieldType} post</h2>
+                        <h2>Create a new {this.state.fieldType} post</h2>
                     </div>
                     <div>
                         <div className={`form-field-group field-title ${areTypeSpecificFieldsVisible['title'] ? "" : " hidden"}`}>
@@ -272,15 +318,7 @@ render(){
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}
                                 />
                         </div>
-                        {this.state.inputs.content.touched  && (<ValidationError message={contentError}/>)}
-                        <div className={`form-field-group field-date ${areTypeSpecificFieldsVisible['dates'] ? "" : " hidden"} `}>
-                            <label htmlFor="event_date">Event Date</label>
-                            <input
-                                type="date" name="event_date"
-                                id="event_date"
-                                onChange={e => this.updateChange(e.target.value, e.target.id)}
-                                />
-                        </div>
+                        {this.state.inputs.content.touched  && (<ValidationError message={contentError}/>)}                        
                         <div className="form-field-group field-img">
                             <label htmlFor="post-image">Upload Screenshot</label>
                             <input
@@ -288,7 +326,7 @@ render(){
                                 accept=".png,.jpg,.gif.bmp, .jpeg"
                                 id="post_image"
                                 alt="user-uploaded-image"
-                                onChange={e => this.updateChange(e.target.value, e.target.id)}
+                                onChange={e => this.updateChange(e.target.files, e.target.id)}
                                 />
                         </div>
                     </div>

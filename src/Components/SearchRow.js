@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+{/*import React, { Component } from 'react';
 import Context from '../Context';
 import { FindUserId } from '../Functions/FilterResults';
 //import config from '../config';
@@ -52,13 +52,16 @@ class SearchRow extends Component{
             <label htmlFor="search_username">Search by username</label>
             <input id="search_username" name="search_username" type="text" onChange={e => this.updateChange(e.target.value, true)}/>
           </div>
+          <div className="button-row">
             <button className="button" type="submit">Search</button>           
           </form>
-          <button className="button" type="reset" onClick={e=>this.handleReset(e)}>Reset</button>
+          <button className="button button-reset" type="reset" onClick={e=>this.handleReset(e)}>Reset</button>
+          </div>
           <div className="error-message">{this.state.error}</div>
+          </form>
           </section>
         )
     }
 }
 
-export default SearchRow; 
+export default SearchRow; */}

@@ -7,7 +7,6 @@
     padding:10px;
     border-bottom: 1px solid #1F4008;
 }
-
 .post-span {
     padding-bottom: 10px;
     font-size:22px;
@@ -28,7 +27,7 @@
 }
 
 .book-post{
-    background-color:#dbd4db;
+    background-color:#eedeee;
 }
 .recipe-post{
     background-color:#dce6e7;
@@ -38,7 +37,7 @@
     background-color:#e2dfc0;
 }
 .podcast-post{
-    background-color:#292e10;
+    background-color:#dde0ca;
 }
 
 .post-info a{
@@ -49,9 +48,6 @@
 .recipe-post a, .recipe-post, .podcast-post, .podcast-post a{
     color:#fff;
 }
-
-
-
 .post-icons-buttons {
     display: flex;
     justify-content: space-around;
@@ -66,9 +62,11 @@
     padding-bottom:20px;
 }
 
-.post-username {
-    text-align: right;
-}
+.post-username, .connect-icon {
+    width:100px;
+    text-align:right;
+    padding:0px 10px;
+ }
 
 .post-icon{
     display: inline-block;
@@ -88,4 +86,19 @@
 
 .recipe-post svg path, .podcast-post svg path{
     fill:#fff;
+}    
+.post-image img {
+    max-width: 300px;
+    margin: auto;
+    display: block;
+}
+
+.user-info {
+    display: flex;
+    width: 100%;
+    text-align: right;
+    padding-bottom: 35px;
+}
+.bookmark-button svg path{
+    fill:#e0add1;
 }    

@@ -18,11 +18,11 @@ module.exports = {
 
     bookmarks:[{
       "username":"divya",
-      "title":"",
-      "link":"",
+      "title":"Great Food, All Day Long",
+      "link":"https://www.penguinrandomhouse.com/books/3918/great-food-all-day-long-by-maya-angelou/",
       "event_dates":"",
-      "by":"",
-      "content":"My inner growth propelled me to by my own 'I'-to be an authentic woman who was contained in herself, who chose and determined and handled her life from her own genuine spiritual center  -Sue Monk Kidd",
+      "by":"Maya Angelou",
+      "content":"COOK SPLENDIDLY, EAT SMART: A COOKBOOK.",
       "type":"lifestyle",
       "date_created":"January 5th 2021" ,
       "bookmark_content":"",

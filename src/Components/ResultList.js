@@ -12,15 +12,26 @@ class ResultList extends Component{
       let filteredResults = posts;
       
       let currentDisplay= this.context.currentDisplay;
+      //let typeOfPost = '';
+
+        if(this.props.postsToDisplay==='posts'){
+        //    typeOfPost = this.context.currentDisplay.dashboard.current_post_type
+        }
+        else if(this.props.postsToDisplay==='bookmarks'){
+          //  typeOfPost = this.context.currentDisplay.bookmark_display.current_post_type;
+        }
+         console.log(this.context.currentDisplay.user_posts_displayed)
       filteredResults = FilterPosts(posts, currentDisplay)
-      //console.log(filteredResults);  
+      //console.log(currentDisplay);  
     return(
-      <section className="results-list">
-        <h2>{this.props.heading}</h2>
-      <ul className="result-list">
-        {filteredResults.map((post, i) => <SinglePost key={i}{...post}
-        postsToDisplay={this.props.postsToDisplay}/>)}
-      </ul>
+      <section className="results-list">        
+        <ul className="result-list">
+          {filteredResults.map((post, i) => 
+          <SinglePost 
+          key={i}{...post}
+          postInfo = {post}
+          postsToDisplay={this.props.postsToDisplay}/>)}
+        </ul>
       </section>
     )
   }
