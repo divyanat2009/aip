@@ -1,8 +1,5 @@
 import React, {Component} from 'react';
 import Nav from './Nav';
-import FilterButtons from './FilterButtons';
-import { faPlusSquare, faIdCard  } from '@fortawesome/free-regular-svg-icons';
-import { faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 class MyAccount extends Component{
     state = {
@@ -43,15 +40,9 @@ class MyAccount extends Component{
                         <label htmlFor="password">Password</label>
                         <input placeholder="*******" type="password" name='password' id='password'/>
                     </div>
-                    <button type="submit">SignIn</button>                    
-                   </form>
-                   <FilterButtons
-                        buttonInfo={[
-                        {ariaLabel:'all users',icon_type:faUsers, link:'/dashboard',display_change:'allUsers'},
-                        {aria_label:'my posts',icon_type:faUser, link:'/dashboard', display_change:'user'},
-                        {aria_label:'my account',icon_type:faIdCard, link:'/my-account',display_change:'all'},
-                        {aria_label:'add new post',icon_type:faPlusSquare, link:'/new-post', display_change:'all'}
-                        ]}/>
+                    <button type="submit" onClick={this.BetaVersionPopUp}>SignIn</button>                    
+                   </form> 
+                                                 
             </div>
         )
     }

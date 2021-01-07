@@ -39,15 +39,17 @@ render(){
     <div className="home">
       <Nav pageType={'home'} onSignUpPopUp = {this.signUpPopUp} onSignUpInClick = {this.signUpInClick} gotoLearnMore = {this.gotoLearnMore}/>      
         <header className="header-home">
+         <div className="landing-page">  
           <h1>Welcome to The Autoimmune Solution</h1>
           <h2 className="tagline">Your resource for nutritional science and lifestyle of the Autoimmune Diet.</h2>          
           <p>This app was created to find positive thoughts, books, podcasts, recipes and events in the AIP Community.You can create your own posts and bookmark posts.</p>
           <button className="button" onClick={this.learnMore}>Learn More</button>
-          <button className="button" onClick={this.startExploring}>Start</button>
+          <button className="button" onClick={this.startExploring}>Start</button>     
+          </div>
+          <About/>    
         </header>
         <main>           
-          <div ref={this.state.statsRef}></div> 
-        <About/>
+          <div ref={this.state.statsRef}></div>         
         </main>               
     </div>            
   )

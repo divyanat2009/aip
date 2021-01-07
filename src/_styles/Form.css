@@ -1,6 +1,64 @@
-.new-post-form{
+.account-page{
+    height:100vh;
+    background-color:#40004b;
+}
+
+.new-post main{
+    margin-top:119px;
+    margin-bottom:40px;
+    background-color: #fff;
+    padding-bottom:20px;
+}
+
+.new-post header{
+    height:61px;
+}
+.account-page > div{
+border-bottom: 2px solid #391832;
+}
+
+.new-post form + .filter-button-row, .account-page .filter-button-row{
+    position:fixed;
+    width:100%;
+    bottom:0;
+}
+
+.new-post .filter-button-row-form{
+    top: 61px;
+    width:100%;
+    position:fixed;
+}
+
+.new-post p{
+    color:#000;
+}
+
+.new-post h2{
+    font-size:1.25em;
+    text-align:center;
+}
+
+.new-post-form {
+    text-align: left;
+    max-width: 600px;
+    margin: auto;
+    margin-bottom:25px;
     font-size: 17px;
     width: 90%;
+    margin-top:119px;
+    padding-top:1px;
+}
+
+.update-account-form{
+    background-color:#fff;
+    padding:10px 20px;
+    margin-top: 20px;
+    margin-bottom: 60px;
+    width:90%;
+}
+
+.update-account-form p{
+    color:#000;
 }
 
 .form-field-group {
@@ -12,8 +70,9 @@
 label {
     margin-right: 5px;
     margin-bottom: 10px;
-    width: 100px;
+    width: 200px;
     display: inline-block;
+    font-size:13px;
 }
 
 select {
@@ -22,18 +81,34 @@ select {
     margin-bottom: 0px;
 }
 
-.new-post-form {
-    text-align: left;
-    max-width: 600px;
-    margin: auto;
-    margin-bottom:75px;
-}
-
 input, textarea{
     width: 210px;
     margin-bottom:10px;
+    font-family: 'Nunito', sans-serif;
 }
-    textarea{
+
+.large-text-area {
+    flex-direction: column;
+    text-align: center;
+}
+
+.large-text-area textarea {
+    width: 96%;
+}
+
+form.search-form {
+    display: flex;
+    justify-content: space-between;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-form input{
+    width:200px;
+    margin-bottom:2px;
+}
+
+textarea{
     height:150px;
 }
 
@@ -56,6 +131,11 @@ input{
     display: inline-block;
 }
 
+.new-post .filter-button-row button{
+    width:45px;
+    padding:2px;
+    margin: 5px;
+}
 
 .form-buttons{
     flex-direction: column;
@@ -80,6 +160,56 @@ input{
     box-shadow: 4px 3px 5px 0px rgba(0,0,0,0.25);
     background-color: #fff;
 }
-@media only screen and (min-width:760px){
 
+.red-font{
+    color:red;
 }
+
+@media only screen and (min-width:400px){
+label {
+    font-size:14px;
+}
+}
+
+
+@media only screen and (min-width:760px){
+    .new-post header {
+        height: 75px;
+    }
+
+    .new-post main {
+        margin-top: 139px;
+        height:100vh;
+    }
+
+    .new-post-form{
+        padding-top: 7px;
+        padding-bottom:20px;
+        margin-top: 0px;
+    }
+
+    .new-post .filter-button-row-form {
+        top: 75px;
+    }
+
+    .new-post .filter-button-row button {
+        margin: 5px 25px;
+    }
+
+    input, textarea {
+        width: 400px;
+    }
+
+    .search-form{
+        max-width:600px
+    }
+}/*end of MQ760*/
+
+@media only screen and (min-width:1060px){
+input, textarea {
+    width: 800px;
+}
+.new-post .filter-button-row button {
+    margin: 5px 40px;
+}
+}/*end of MQ760*/

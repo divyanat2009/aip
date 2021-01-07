@@ -153,14 +153,11 @@ handleSubmit=(e)=>{
     let url = `${config.API_ENDPOINT}/posts`
     if(inputs.post_image.file){
         let formData = new FormData();
-        const fileField = inputs.post_image.file;
-        console.log(fileField)
-        formData.append('image', fileField);
-        console.log(formData)
+        const fileField = inputs.post_image.file;        
+        formData.append('image', fileField);        
 
         let image_url = `${config.API_ENDPOINT}/upload`;
-        console.log(image_url)
-
+        
         fetch(image_url, {
             method: 'POST',
             body: formData,
@@ -191,20 +188,12 @@ handleSubmit=(e)=>{
            return resp.json()
         })
         .then(post => {
-                // title.value = ''
-                 // url.value = ''
-                 // description.value = ''
-                  //rating.value = ''
-                  console.log(`this is the new post from res`)
-                  console.log(post)
-                //  this.props.history.push('/dashboard')
-                //  this.context.addPost(newPost)
-                  //this.props.onAddBookmark(data)
+            this.props.history.push('/dashboard')
+            this.context.addPost(newPostWithImage)       
         })
-
         .catch(error => {
-                    this.setState({ error })
-                  })    
+            this.setState({ error })
+        })    
     }    
 else if(!inputs.post_image.file){  
   let newPost = {
@@ -216,7 +205,6 @@ else if(!inputs.post_image.file){
     by:inputs.by.value,
     image_path:''
 }
-// console.log(newPost)
 fetch(url, {
     method: 'POST',
     body: JSON.stringify(newPost),
@@ -236,20 +224,13 @@ fetch(url, {
     return res.json()
     })
     .then(post => {
-    // title.value = ''
-    // url.value = ''
-    // description.value = ''
-    //rating.value = ''
-    console.log(`this is the new post from res`)
-    console.log(post)
-    this.props.history.push('/dashboard')
-    this.context.addPost(newPost)
-    //this.props.onAddBookmark(data)
+      this.props.history.push('/dashboard')
+      this.context.addPost(newPost)    
     })
     .catch(error => {
-    this.setState({ error })
+      this.setState({ error })
     })
-}//end of else if
+  }
 }      
 
 render(){
@@ -258,21 +239,19 @@ render(){
     const linkError = this.validateLink();
 
     return(
-        <div className="new-post">
+        <div className="new-post form-page">
             <header>
-                <Nav 
-                pageType={'interior'}
-                />
+                <Nav pageType={'interior'}/>
             </header>
             <main>
             <FilterButtonsForm
                     updateFields = {this.updateFields}
                     buttonInfo={[
-                    {aria_label:'fields to create new recipe post',icon_type:faSeedling,field_type:'recipe'},
-                    {ariaLabel:'fields to create new book post',icon_type:faBookOpen, field_type:'book'},
-                    {aria_label:'fields to create new podcast post',icon_type:faPodcast,field_type:'podcast'},
-                    {aria_label:'lifestyle posts',icon_type:faHeartbeat, field_type:'lifestyle'},
-                    {aria_label:'event posts',icon_type:faCalendarAlt,field_type:'event'}]}
+                    {aria_label:'fields to create new recipe post',icon_type:faSeedling,field_type:'recipe', tooltipMessage:'create a recipe post',tooltipClass:'bottom-farright'},
+                    {ariaLabel:'fields to create new book post',icon_type:faBookOpen, field_type:'book', tooltipMessage:'create a book post',tooltipClass:'bottom-right'},
+                    {aria_label:'fields to create new podcast post',icon_type:faPodcast,field_type:'podcast', tooltipMessage:'create a podcast post',tooltipClass:'bottom-center'},
+                    {aria_label:'lifestyle posts',icon_type:faHeartbeat, field_type:'lifestyle',tooltipMessage:'create a lifestyle post',tooltipClass:'bottom-left'},
+                    {aria_label:'event posts',icon_type:faCalendarAlt,field_type:'event', tooltipMessage:'create an event post',tooltipClass:'bottom-farleft'}]}
                 />
 
                 <form className="new-post-form" 
@@ -335,8 +314,7 @@ render(){
                         <button 
                             type="submit"
                             disabled={
-                             //   this.state.submitDisabled || this.validateLink()
-                             this.state.submitDisabled
+                            this.state.submitDisabled
                             }
                         >
                             Post</button>
@@ -350,7 +328,7 @@ render(){
                     {aria_label:'my account',icon_type:faIdCard, link:'/my-account',display_change:'all'},
                     {aria_label:'add new post',icon_type:faPlusSquare, link:'/new-post', display_change:'all'}
                     ]}
-                
+                    rowPosition={'row-bottom-all-screens'}
                 />
             </main>
         </div>

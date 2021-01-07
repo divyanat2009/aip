@@ -18,18 +18,25 @@ class FilterButtons extends Component{
         const iconType = buttonInfoObject.icon_type;
         const link = buttonInfoObject.link;
         const displayChange = buttonInfoObject.display_change;
+        const tooltipMessage = buttonInfoObject.tooltipMessage;
+        const tooltipClass = buttonInfoObject.tooltipClass;
+
         let button = (<button></button>)
+
         button = (<IconButton
           key={i} 
           link={link}
           aria-label={`button-access ${ariaLabel}`}
           displayChange={displayChange}
-          iconType={iconType}/>
+          iconType={iconType}
+          tooltipMessage = {tooltipMessage}
+          tooltipClass = {tooltipClass}
+          pageType = {this.props.pageType}/>
        );           
         return(button);      
     })  
     return(
-       <section className="filter-button-row">
+       <section className={`${this.props.rowPosition} filter-button-row`}>
           <div className="button-row">
             {Buttons}
           </div>  

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link} from 'react-router-dom';
-import IconButton from './IconButton.js';
+import IconButton from './IconButton';
 import { faPlusSquare} from '@fortawesome/free-regular-svg-icons';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 

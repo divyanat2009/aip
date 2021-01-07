@@ -50,8 +50,17 @@ class SinglePost extends Component{
         }
         let currentUser = this.context.currentUserInfo.username;
         bookmarked = isCurrentlyBookmarked(post_id, this.context.bookmarks);
-        //let currentDisplay= this.context.currentDisplay;    
-        if(this.props.postsToDisplay ==='posts' && bookmarked){
+        //let currentDisplay= this.context.currentDisplay;   
+        if(this.props.postsToDisplay ==='bookmarks' ){
+            bookmarkButton = 
+                <DeleteBookmark
+                    bookmarkId={bookmark_id}
+                    postId={post_id}
+                    currentUserId ={currentUserId}
+                    push={this.props.history.push}
+                    displayType = {this.props.postsToDisplay}/>                                        
+        } 
+        else if(this.props.postsToDisplay ==='posts' && bookmarked){
             bookmarkButton = 
                 <DeleteBookmark
                     bookmarkId={bookmarked}

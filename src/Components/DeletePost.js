@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import Context from '../Context.js';
 import config from '../config';
 
@@ -22,30 +22,45 @@ function deletePostRequest(postId, callback){
     .then(() => {
       // call the callback when the request is successful
       // this is where the App component can remove it from state   
-       callback(postId)
-       console.log(`call worked`)
+       callback(postId)    
     })
     .catch(error => {
        callback(postId, error)
-    })
-  console.log(`button clicked`)
+    })  
 }
+class DeletePost extends Component{
+    state = {
+        isBoxVisible:false,
+    }
+    static contextType= Context;
 
-export default function DeletePost(props){
-    return(
-        <Context.Consumer>
-            {(context)=>(
-                <button className="delete-button"
-                    onClick={()=>{
-                        deletePostRequest(props.postId,
-                            context.deletePost);
-                    }}>
+    showAreYouSurePopUp=()=>{
+        this.setState(prevState => ({ isBoxVisible: true }));
+    }
+
+    cancelDeleteRequest=()=>{
+        this.setState(prevState => ({ isBoxVisible: false }));
+    }
+
+    render(){
+        const { isBoxVisible } = this.state;
+        return(
+            <div className="delete-post-area">
+                <button className="delete-button" onClick={this.showAreYouSurePopUp}>
                     Delete Post
-
                 </button>
-            )}
-
-
-        </Context.Consumer>
-    )
-} 
+                <div className={`box are-you-sure-box ${isBoxVisible ? "" : "hidden"}`}>
+                    <p>Are you sure you want to delete this post? This action can not be undone.</p>
+                     <button className="button" onClick={()=>{
+                             deletePostRequest(this.props.postId,
+                            this.context.deletePost);
+                            }}>
+                            Delete Post
+                    </button>
+                    <button className="button" onClick = {this.cancelDeleteRequest}>Whoops-nevermind</button>
+                </div> 
+            </div>            
+        )
+    }
+}
+export default DeletePost;

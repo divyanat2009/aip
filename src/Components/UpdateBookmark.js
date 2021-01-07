@@ -93,8 +93,7 @@ class UpdateBookmark extends Component{
                             value={this.state.bookmarkContent.value}
                             onChange={e => this.updateChange(e.target.value)}
                             className={`${this.state.bookmarkContent.touched ? "red-font" : ""} `}/>
-                     </div>
-                     {/*this.state.inputs.content.touched  && (<ValidationError message={contentError}/>)*/}
+                     </div>                     
                   </div>
                   <div className="form-buttons button-row">    
                     <button type="submit" disabled={
