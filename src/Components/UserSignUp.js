@@ -16,19 +16,15 @@ startExploring = () => {
         return(
             <div>
               <main>
-                <Link to={'/'}>Sign In</Link>
+                <Link to={'/my-account'}>Sign In</Link>
                 <form className="signup-form">
                 <h2>Sign-up to begin your AIP journey!</h2>
-                <label htmlFor="first-name">First Name</label>
-                <input placeholder='First Name' type="text" name='first-name' id='first-name-1'/>
-                <label htmlFor="last-name">Last Name</label>
-                <input placeholder="Last Name" type='text' name='last-name' id='last-name-1'/>
+                <label htmlFor="first-name">Full Name</label>
+                <input placeholder='Full Name' type="text" name='full-name' id='full-name'/>                
                 <label htmlFor="last-name">UserName</label>
-                <input placeholder="UserName" type='text' name='username' id='username'/>
-                <label htmlFor="email">Email</label>
-                <input placeholder="Your Email" type="email" name='email' id='youremail'/>
+                <input placeholder="UserName" type='text' name='username' id='username'/>                
                 <label htmlFor="password">Password</label>
-                <input placeholder="*******" type="password" name='password' id='password1'/>
+                <input placeholder="*******" type="password" name='password' id='password'/>
                 <button type="submit">Sign Up</button>
                 <button type="learn-more" onClick={this.startExploring}>Learn More</button>
                 </form>

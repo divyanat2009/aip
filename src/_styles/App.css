@@ -140,21 +140,16 @@ header{
 .copyright{
   color:white;
 }
-.learnmore h2{
-  margin-block-start: 0em;
-  color:#391832;
+
+.learnmore h2{  
+  color:white;
+  text-align: left;
 }
 
 .learnmore p, .about p {
   text-align: left;
   max-width: 300px;
-  margin: 35px auto 10px;
-}
-
-.learnmore img{
-  max-width:260px;
-  border:1px solid #fff;
-  border-radius:3px;
+  margin: 35px auto 10px;  
 }
 
 .individual-post-container{
@@ -242,7 +237,7 @@ button{
 }
 
 button:hover{
-  background-color:#038990;
+  background-color:#97055a;
 }
 
 button:focus{
@@ -348,7 +343,7 @@ svg.inline-block-icon {
 }
 
 :focus {
-  outline: #f28705 auto 1px;
+  outline: #d8a76c auto 1px;
 }
 
 .fine-print{
@@ -568,9 +563,8 @@ header > div{
 }
 
   .learnmore p {
-    width:400px;
-    margin: 0;
-    padding-top:30px
+    width:600px;
+    margin: 0;    
   }
 
   .about p{

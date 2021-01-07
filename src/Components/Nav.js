@@ -26,7 +26,7 @@ class Nav extends Component {
                   displayChange={'all'}
                   iconType={faHome}
                   buttonColor={'orange-background'}
-                  tooltipMessage = {'learn more about the AIP app'}
+                  tooltipMessage = {'learn more about AIP'}
                   tooltipClass={'bottom-farleft'}
               />
           </nav>)}      

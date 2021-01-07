@@ -21,20 +21,12 @@ class MyAccount extends Component{
               <button className="button" onClick={this.closeWindow}>Close</button>
               </div>             
                 <form className="update-account-form" onSubmit={e=>this.BetaVersionPopUp(e)}>
-                    <h2>My Account</h2>
-                    <p>The account information for Divya is below.</p>
-                    <p>Please use the form to update your name, email address or password.</p>
+                    <h2>My Account</h2>                    
+                    <p>Please enter your username and password to SignIn.</p>
+                    
                     <div className="form-field-group">
-                        <label htmlFor="first-name">First Name</label><br/>
-                        <input placeholder='Divya' type="text" name='first-name' id='first-name'/>
-                    </div>
-                    <div className="form-field-group">
-                        <label htmlFor="last-name">Last Name</label>
-                        <input placeholder="Natarajan" type='text' name='last-name' id='last-name'/>
-                    </div>
-                    <div className="form-field-group">
-                        <label htmlFor="email">Email</label>
-                        <input placeholder="user@gmail.com" type="email" name='email' id='email'/>
+                        <label htmlFor="username">UserName</label>
+                        <input placeholder="user123" type="username" name='username' id='username'/>
                     </div>
                     <div className="form-field-group">
                         <label htmlFor="password">Password</label>

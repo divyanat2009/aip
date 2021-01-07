@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 
+
 class About extends Component{
     render(){
         return(
@@ -14,6 +15,7 @@ class About extends Component{
             <section className="learnmore">
               <h2>The AIP Diet</h2>
               <p>The AIP diet provides balanced and complete nutrition while avoiding processed and refined foods and empty calories. The AIP lifestyle encourages sufficient sleep, stress management and activity as these are important immune modulators.</p>
+              
             </section>          
           </main>
         )

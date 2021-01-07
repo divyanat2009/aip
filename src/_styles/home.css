@@ -4,8 +4,8 @@
 }
 
 .header-home h1{
-    font-size:3em;
-    padding-top:2.5em;
+    font-size:3.25em;
+    padding-top:2.25em;
     font-family: 'Nunito', sans-serif;
 }
 
@@ -93,9 +93,11 @@
     border-bottom:1px solid #038990;
 
 }
-
+.aipdietPic{
+    justify-content: right;
+}
 .about h2, .learnmore h2{
-    color:white;
+    color:white;    
 }
 .about p, .learnmore p{
     color:white;

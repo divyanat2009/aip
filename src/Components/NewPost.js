@@ -7,8 +7,8 @@ import '../_styles/Form.css';
 import config from '../config'
 import ValidationError from './ValidationError'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt, faPlusSquare, faIdCard, faSmile  } from '@fortawesome/free-regular-svg-icons';
-import { faPodcast, faSeedling, faBookOpen,faUser, faHome, faHeartbeat} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faIdCard, faSmile  } from '@fortawesome/free-regular-svg-icons';
+import { faPodcast, faSeedling, faBookOpen,faUser, faHeartbeat} from '@fortawesome/free-solid-svg-icons';
 
 
 class NewPost extends Component{
@@ -242,6 +242,12 @@ render(){
         <div className="new-post form-page">
             <header>
                 <Nav pageType={'interior'}/>
+                <FilterButtons
+                    buttonInfo={[                    
+                    {aria_label:'my posts',icon_type:faUser, link:'/dashboard', display_change:'user', tooltipMessage:'view all your posts',tooltipClass:'bottom-farright'},
+                    {aria_label:'my account',icon_type:faIdCard, link:'/my-account',display_change:'all', tooltipMessage:'signin to your account',tooltipClass:'bottom-farright'},                    
+                    ]}                
+                />
             </header>
             <main>
             <FilterButtonsForm
@@ -322,14 +328,7 @@ render(){
                     </div>
                   
                 </form>
-                <FilterButtons
-                    buttonInfo={[{ariaLabel:'all users',icon_type:faHome, link:'/dashboard',display_change:'allUsers'},
-                    {aria_label:'my posts',icon_type:faUser, link:'/dashboard', display_change:'user'},
-                    {aria_label:'my account',icon_type:faIdCard, link:'/my-account',display_change:'all'},
-                    {aria_label:'add new post',icon_type:faPlusSquare, link:'/new-post', display_change:'all'}
-                    ]}
-                    rowPosition={'row-bottom-all-screens'}
-                />
+                
             </main>
         </div>
     )
