@@ -2,7 +2,7 @@ export const FilterPosts = (posts,currentDisplay) =>{
   // let currentUserInfo = users.find(user=>user.user_id===currentUserId);
    
    let filteredPosts = posts;
-   //using buttons for filtering  by type of post (book, music, etc)
+   //using buttons for filtering  by type of post (book, recipe, etc)
    if(currentDisplay.dashboard.current_post_type!=='all'){
        filteredPosts = filteredPosts.filter(post=>post.post_type===currentDisplay.dashboard.current_post_type)
    }
