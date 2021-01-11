@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import Nav from './Nav';
-//import UserSignUp from "./UserSignUp";
+
 import {BASE_URL} from "../config";
 import {BASE_URL_FRONTEND} from "../config";
+
+
 class MyAccount extends Component{
     state = {
         isBoxVisible:false,
@@ -40,12 +42,12 @@ class MyAccount extends Component{
         .catch(err=> alert(err))
     }   
     render(){      
-        //let signUp = new UserSignUp(); 
+         
         return(
           <div className="account-page">
             <Nav pageType={'interior'}/>
               <div className={`box beta-version-box ${this.state.isBoxVisible ? "" : "hidden"}`}>
-              
+              <p>Since this is still the Beta version of the app, you cannot update account information. Please check back soon to be able to sign-up and update your account whenever!</p>
               <button className="button" onClick={this.closeWindow}>Close</button>
               </div>             
                 <form className="update-account-form" onSubmit={e=>this.signIn(e)}>

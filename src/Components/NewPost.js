@@ -9,8 +9,7 @@ import ValidationError from './ValidationError'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faIdCard, faSmile  } from '@fortawesome/free-regular-svg-icons';
 import { faPodcast, faSeedling, faBookOpen,faUser, faHeartbeat} from '@fortawesome/free-solid-svg-icons';
-import {API_ENDPOINT} from '../config';
-
+import {BASE_URL} from "../config";
 
 
 class NewPost extends Component{
@@ -21,9 +20,10 @@ class NewPost extends Component{
       error:null,
       submitDisabled:true,
       fieldType:'recipe',
-      areTypeSpecificFieldsVisible:{'title':true, 'by':false,'link':false,'content':false},
+      areTypeSpecificFieldsVisible:{'title':false, 'author':false, 'by':false,'link':false,'content':true},
       inputs:{
-      title:{value:"",touched:false},      
+      title:{value:"",touched:false},
+      author:{value:"",touched:false},
       by:{value:"",touched:false},
       link:{value:"",touched:false},
       content:{value:"",touched:false},
@@ -102,7 +102,7 @@ class NewPost extends Component{
   }
 
   checkDisableSubmit(){
-    
+    console.log(`cDS ${this.state.fieldType} ${this.state.inputs.title.touched} ${this.state.inputs.author.touched} ${this.state.submitDisabled}`)
     if(this.state.inputs.post_image.touched){
         this.setState({submitDisabled:false})
     }
@@ -175,7 +175,7 @@ handleSubmit=(e)=>{
                 body: JSON.stringify(newPostWithImage),
                 headers: {
                   'content-type': 'application/json',
-                  'authorization': `Bearer ${config.API_KEY}`
+                 // 'authorization': `Bearer ${config.API_KEY}`
                 }
               })
         })
@@ -212,7 +212,7 @@ fetch(url, {
     body: JSON.stringify(newPost),
     headers: {
     'content-type': 'application/json',
-    'authorization': `Bearer ${config.API_KEY}`
+    // 'authorization': `Bearer ${config.API_KEY}`
     }  
 })
 .then(res => {
@@ -233,15 +233,17 @@ fetch(url, {
       this.setState({ error })
     })
   }
-} 
+}      
+
 postData()
 {
+    console.log("Clicked!")
     const user = this.props.match.params.username;
     console.log(user);
     const {inputs, fieldType}=this.state; 
     //user_id, title, link, start_date,by,content, post_type
-    
-    fetch(API_ENDPOINT+'/posts/'+user, {
+    console.log(BASE_URL+'/posts/'+user);
+    fetch(BASE_URL+'/posts/'+user, {
       method:'post',
       headers:{'Content-Type' : 'application/json'},
       body:JSON.stringify({
@@ -260,10 +262,9 @@ postData()
       //window.location.href = BASE_URL_FRONTEND+"/my-account";
     })
     .catch(err => alert(err))
-}     
-
+}
 render(){
-    
+    const { areTypeSpecificFieldsVisible } = this.state;
     const contentError = this.validateContent();
     const linkError = this.validateLink();
 
@@ -297,28 +298,34 @@ render(){
                         <h2>Create a new {this.state.fieldType} post</h2>
                     </div>
                     <div>
-                        <div className='form-field-group field-title'>
+                        <div className={`form-field-group field-title ${areTypeSpecificFieldsVisible['title'] ? "" : " hidden"}`}>
                             <label htmlFor="title">Title*</label>
                             <input 
                                 type="text" name="title" id="title" placeholder="A New Beginning"
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                         </div>
                         <div 
-                             className='form-field-group field-author'>
+                             className={`form-field-group field-author ${areTypeSpecificFieldsVisible['author'] ? "" : " hidden"}`}>
                             <label htmlFor="by">Author</label>
                             <input 
                                 type="text" name="by" id="by" placeholder="Maya Angelou"
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                         </div>
-                                                
-                        <div className='form-field-group field-link'>
+                        <div className={`form-field-group field-doctor ${areTypeSpecificFieldsVisible['doctor'] ? "" : " hidden"}`}>
+                            <label htmlFor="by">Nutritionist</label>
+                            <input 
+                                type="text" name="by" id="by" placeholder="Kimberly Snyder"
+                                onChange={e => this.updateChange(e.target.value, e.target.id)}/>
+                        </div>
+                        
+                        <div className={`form-field-group field-link ${areTypeSpecificFieldsVisible['link'] ? "" : " hidden"} `}>
                             <label htmlFor="link">Link*</label>
                             <input 
                                 type="url" name="link" id="link" placeholder="http://someamazingsite.com"
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                         </div>
                         {this.state.inputs.link.touched  && (<ValidationError message={linkError}/>)}
-                        <div className='form-field-group field-content'>
+                        <div className={`form-field-group field-content ${areTypeSpecificFieldsVisible['content'] ? "" : " hidden"} `}>
                             <label htmlFor="content">Content*</label>
                             <textarea
                                 type="textarea" name="content"
@@ -340,8 +347,12 @@ render(){
                     </div>
                         
                     <div className="form-buttons button-row">    
-                        <button type="button" onClick={()=>this.postData()}>
-                            Post</button>                        
+                        <button 
+                            type="button"
+                            onClick={()=>this.postData()}
+                        >
+                            Post</button>
+                        <button type="reset">Cancel</button>
                     </div>
                   
                 </form>

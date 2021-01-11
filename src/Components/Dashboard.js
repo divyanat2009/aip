@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Nav from './Nav';
 import ResultList from './ResultList';
 import Context from '../Context';
-import API_ENDPOINT from '../config'
+import {BASE_URL} from "../config";
 
 class Dashboard extends Component{
   state = {
@@ -15,7 +15,7 @@ class Dashboard extends Component{
       user : user
     })
     console.log(user)
-    fetch(API_ENDPOINT+'/posts/'+user)
+    fetch(BASE_URL+'/posts/'+user)
     .then(response=> response.json())
     .then(response=>{
       console.log(response)
@@ -25,7 +25,8 @@ class Dashboard extends Component{
     })
     .catch(err=> alert(err))
 
-  }  
+  }
+
     static contextType = Context;
     render(){
       return(
