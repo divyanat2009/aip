@@ -20,8 +20,7 @@ class MyAccount extends Component{
     } 
     setForm(e)
    {
-    const {name, value} = e.target;
-    console.log(value);
+    const {name, value} = e.target;    
     this.setState({
         [name] : value
     });
@@ -47,7 +46,7 @@ class MyAccount extends Component{
           <div className="account-page">
             <Nav pageType={'interior'}/>
               <div className={`box beta-version-box ${this.state.isBoxVisible ? "" : "hidden"}`}>
-              <p>Since this is still the Beta version of the app, you cannot update account information. Please check back soon to be able to sign-up and update your account whenever!</p>
+              
               <button className="button" onClick={this.closeWindow}>Close</button>
               </div>             
                 <form className="update-account-form" onSubmit={e=>this.signIn(e)}>

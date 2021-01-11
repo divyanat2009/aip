@@ -14,19 +14,17 @@ class Dashboard extends Component{
     this.setState({
       user : user
     })
-    console.log(user)
     fetch(BASE_URL+'/posts/'+user)
     .then(response=> response.json())
-    .then(response=>{
-      console.log(response)
+    .then(response=>{      
       this.setState({
         posts: response
       })
     })
+    
     .catch(err=> alert(err))
 
   }
-
     static contextType = Context;
     render(){
       return(
@@ -38,7 +36,7 @@ class Dashboard extends Component{
             <ResultList
             heading = {'Posts'}
             postsToDisplay = {'posts'}
-            posts = {this.state.posts}/>
+            posts = {this.context.posts}/>
           </main>
           <footer className="copyright">
           

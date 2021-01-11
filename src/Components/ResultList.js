@@ -10,7 +10,7 @@ class ResultList extends Component{
       //component passes in either the default posts to display on the page
       let posts=this.props.posts;
      
-      let filteredResults = posts;
+      let filteredResults = [];
 
       let currentDisplay= this.context.currentDisplay;
       let typeOfPost = '';
@@ -22,8 +22,7 @@ class ResultList extends Component{
           typeOfPost = this.context.currentDisplay.bookmark_display.current_post_type;
       }
        
-      filteredResults = FilterPosts(posts, currentDisplay)    
-      
+      filteredResults = FilterPosts(posts, currentDisplay)       
       
       return(
           <section className="results-list">
