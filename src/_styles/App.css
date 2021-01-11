@@ -245,11 +245,11 @@ button:focus{
 }
 
 button:focus svg{
-  outline: solid 2px #f28705;
+  outline: solid 2px #de05f2;
 }
 
 button.delete-button:hover,.new-post button:hover {
-  background-color:#f28705;
+  background-color:#f8f8f8;
 }
 
 .button-icon-link{

@@ -152,7 +152,7 @@
 }
 
 .single-post .bookmark-button:hover svg path, .single-post svg path{
-    fill:#f2b705;
+    fill:#ee4dcb;
 }
 
 .single-post.not-bookmarked .bookmark-button:hover svg path,.single-post svg path{
@@ -160,7 +160,7 @@
 }
 
 .connection-button.delete-icon svg path,.bookmark-button.delete-icon svg path{
-    fill:#d97700;
+    fill:#f895c3;
 }
 
 .post-image img {

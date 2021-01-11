@@ -11,7 +11,7 @@ class Nav extends Component {
        List = ( 
           <nav className="main-nav nav">
               <IconButton
-                  link={'/new-post'}
+                  link={`/${this.props.user}/new-post`}
                   ariaLabel={`add new post`}
                   displayChange={'all'}
                   iconType={faPlusSquare}
@@ -19,7 +19,7 @@ class Nav extends Component {
                   tooltipMessage = {'create a new post'}
                   tooltipClass={'bottom-farright'}
               />
-              <h1><Link className="site-heading" to={'/dashboard'}>The Autoimmune Solution</Link></h1>
+              <h1><Link className="site-heading" to={`/dashboard`}>The Autoimmune Solution</Link></h1>
               <IconButton
                   link={'/'}
                   ariaLabel={`learn more page`}

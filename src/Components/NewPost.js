@@ -9,6 +9,8 @@ import ValidationError from './ValidationError'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarAlt, faIdCard, faSmile  } from '@fortawesome/free-regular-svg-icons';
 import { faPodcast, faSeedling, faBookOpen,faUser, faHeartbeat} from '@fortawesome/free-solid-svg-icons';
+import {API_ENDPOINT} from '../config';
+
 
 
 class NewPost extends Component{
@@ -19,14 +21,14 @@ class NewPost extends Component{
       error:null,
       submitDisabled:true,
       fieldType:'recipe',
-      areTypeSpecificFieldsVisible:{'title':false, 'author':false, 'by':false,'link':false,'content':true},
+      areTypeSpecificFieldsVisible:{'title':true, 'by':false,'link':false,'content':false},
       inputs:{
-      title:{value:"",touched:false},
-      author:{value:"",touched:false},
+      title:{value:"",touched:false},      
       by:{value:"",touched:false},
       link:{value:"",touched:false},
       content:{value:"",touched:false},
-      post_image:{value:"",touched:false, file:""}}
+      post_image:{value:"",touched:false, file:""}},
+      user: this.props.match.params.username
     }//end of state
   }
   //updates the fields displayed depending on the type of post
@@ -100,7 +102,7 @@ class NewPost extends Component{
   }
 
   checkDisableSubmit(){
-    console.log(`cDS ${this.state.fieldType} ${this.state.inputs.title.touched} ${this.state.inputs.author.touched} ${this.state.submitDisabled}`)
+    
     if(this.state.inputs.post_image.touched){
         this.setState({submitDisabled:false})
     }
@@ -173,7 +175,7 @@ handleSubmit=(e)=>{
                 body: JSON.stringify(newPostWithImage),
                 headers: {
                   'content-type': 'application/json',
-                 // 'authorization': `Bearer ${config.API_KEY}`
+                  'authorization': `Bearer ${config.API_KEY}`
                 }
               })
         })
@@ -210,7 +212,7 @@ fetch(url, {
     body: JSON.stringify(newPost),
     headers: {
     'content-type': 'application/json',
-    // 'authorization': `Bearer ${config.API_KEY}`
+    'authorization': `Bearer ${config.API_KEY}`
     }  
 })
 .then(res => {
@@ -231,20 +233,47 @@ fetch(url, {
       this.setState({ error })
     })
   }
-}      
+} 
+postData()
+{
+    const user = this.props.match.params.username;
+    console.log(user);
+    const {inputs, fieldType}=this.state; 
+    //user_id, title, link, start_date,by,content, post_type
+    
+    fetch(API_ENDPOINT+'/posts/'+user, {
+      method:'post',
+      headers:{'Content-Type' : 'application/json'},
+      body:JSON.stringify({
+        post_type:fieldType,
+        title:inputs.title.value,
+        link:inputs.link.value,
+        content:inputs.content.value,
+        by:inputs.by.value,
+        image_path:'' 
+      })
+    })
+    .then(response=> response.json())
+    .then(response=>{
+        console.log(response)
+      alert("Thank you for your post!");
+      //window.location.href = BASE_URL_FRONTEND+"/my-account";
+    })
+    .catch(err => alert(err))
+}     
 
 render(){
-    const { areTypeSpecificFieldsVisible } = this.state;
+    
     const contentError = this.validateContent();
     const linkError = this.validateLink();
 
     return(
         <div className="new-post form-page">
             <header>
-                <Nav pageType={'interior'}/>
+                <Nav pageType={'interior'} user={this.state.user}/>
                 <FilterButtons
                     buttonInfo={[                    
-                    {aria_label:'my posts',icon_type:faUser, link:'/dashboard', display_change:'user', tooltipMessage:'view all your posts',tooltipClass:'bottom-farright'},
+                    {aria_label:'my posts',icon_type:faUser, link:`/${this.state.user}/dashboard`, display_change:'user', tooltipMessage:'view all your posts',tooltipClass:'bottom-farright'},
                     {aria_label:'my account',icon_type:faIdCard, link:'/my-account',display_change:'all', tooltipMessage:'signin to your account',tooltipClass:'bottom-farright'},                    
                     ]}                
                 />
@@ -268,34 +297,28 @@ render(){
                         <h2>Create a new {this.state.fieldType} post</h2>
                     </div>
                     <div>
-                        <div className={`form-field-group field-title ${areTypeSpecificFieldsVisible['title'] ? "" : " hidden"}`}>
+                        <div className='form-field-group field-title'>
                             <label htmlFor="title">Title*</label>
                             <input 
                                 type="text" name="title" id="title" placeholder="A New Beginning"
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                         </div>
                         <div 
-                             className={`form-field-group field-author ${areTypeSpecificFieldsVisible['author'] ? "" : " hidden"}`}>
+                             className='form-field-group field-author'>
                             <label htmlFor="by">Author</label>
                             <input 
                                 type="text" name="by" id="by" placeholder="Maya Angelou"
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                         </div>
-                        <div className={`form-field-group field-doctor ${areTypeSpecificFieldsVisible['doctor'] ? "" : " hidden"}`}>
-                            <label htmlFor="by">Nutritionist</label>
-                            <input 
-                                type="text" name="by" id="by" placeholder="Kimberly Snyder"
-                                onChange={e => this.updateChange(e.target.value, e.target.id)}/>
-                        </div>
-                        
-                        <div className={`form-field-group field-link ${areTypeSpecificFieldsVisible['link'] ? "" : " hidden"} `}>
+                                                
+                        <div className='form-field-group field-link'>
                             <label htmlFor="link">Link*</label>
                             <input 
                                 type="url" name="link" id="link" placeholder="http://someamazingsite.com"
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                         </div>
                         {this.state.inputs.link.touched  && (<ValidationError message={linkError}/>)}
-                        <div className={`form-field-group field-content ${areTypeSpecificFieldsVisible['content'] ? "" : " hidden"} `}>
+                        <div className='form-field-group field-content'>
                             <label htmlFor="content">Content*</label>
                             <textarea
                                 type="textarea" name="content"
@@ -317,14 +340,8 @@ render(){
                     </div>
                         
                     <div className="form-buttons button-row">    
-                        <button 
-                            type="submit"
-                            disabled={
-                            this.state.submitDisabled
-                            }
-                        >
-                            Post</button>
-                        <button type="reset">Cancel</button>
+                        <button type="button" onClick={()=>this.postData()}>
+                            Post</button>                        
                     </div>
                   
                 </form>
