@@ -1,25 +1,32 @@
 import React, {Component} from 'react';
 import Nav from './Nav';
-//import UserSignUp from './UserSignUp';
-import {API_ENDPOINT} from "../config";
+//import UserSignUp from "./UserSignUp";
+import {BASE_URL} from "../config";
 import {BASE_URL_FRONTEND} from "../config";
-
 class MyAccount extends Component{
-    state = {        
+    state = {
+        isBoxVisible:false,
         username: "",
         password: ""
     }
-    
+    BetaVersionPopUp=(e)=>{
+        e.preventDefault();
+        this.setState({ isBoxVisible: true });
+    }
+    closeWindow=()=>{
+        this.setState({ isBoxVisible: false });
+    } 
     setForm(e)
    {
-    const {name, value} = e.target;    
+    const {name, value} = e.target;
+    console.log(value);
     this.setState({
         [name] : value
     });
    }
     signIn = (e) =>  { 
         e.preventDefault();
-        fetch(API_ENDPOINT+'/users/checkuser/'+this.state.username, {
+        fetch(BASE_URL+'/users/checkuser/'+this.state.username, {
           method:'post',
           headers:{'Content-Type' : 'application/json'},
           body:JSON.stringify({
@@ -36,8 +43,11 @@ class MyAccount extends Component{
         //let signUp = new UserSignUp(); 
         return(
           <div className="account-page">
-            <Nav pageType={'interior'}/>             
-        
+            <Nav pageType={'interior'}/>
+              <div className={`box beta-version-box ${this.state.isBoxVisible ? "" : "hidden"}`}>
+              
+              <button className="button" onClick={this.closeWindow}>Close</button>
+              </div>             
                 <form className="update-account-form" onSubmit={e=>this.signIn(e)}>
                     <h2>My Account</h2>                    
                     <p>Please enter your username and password to SignIn.</p>

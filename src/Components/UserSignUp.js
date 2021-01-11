@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import {API_ENDPOINT} from '../config';
-import {BASE_URL_FRONTEND} from '../config'
-
+import {BASE_URL} from "../config";
+import {BASE_URL_FRONTEND} from "../config";
 class UserSignUp extends Component{
   state = {
     isBoxVisible:false,
@@ -22,7 +21,7 @@ class UserSignUp extends Component{
   }
   signupUser = (e) =>  { 
       e.preventDefault();
-      fetch(API_ENDPOINT+'/users', {
+      fetch(BASE_URL+'/users', {
         method:'post',
         headers:{'Content-Type' : 'application/json'},
         body:JSON.stringify({
@@ -32,7 +31,8 @@ class UserSignUp extends Component{
         })
       })
       .then(response=> response.json())
-      .then(response=>{        
+      .then(response=>{
+        alert("Thank you for signing up!");
         window.location.href = BASE_URL_FRONTEND+"/my-account";
       })
       .catch(err=> alert(err))
@@ -60,7 +60,8 @@ startExploring = () => {
                  onChange={e=>this.setForm(e)}/>
                 <button type="submit">Sign Up</button>
                 <button type="learn-more" onClick={this.startExploring}>Learn More</button>
-                </form>              
+                </form>
+              
               </main>
             </div>
 
