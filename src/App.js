@@ -118,11 +118,12 @@ class App extends Component{
 
     fetch(url,{
         method:'GET',
-        header:{
+        headers:{
         'content-type':'application/json',
-        // 'Authorization':`Bearer ${config.API_KEY}`
-        },
+        'Authorization':`Bearer ${config.API_KEY}`        
+        },        
     })
+    
     .then(res=>{
         if(!res.ok){
         throw new Error('Something went wrong, please try again')
@@ -143,11 +144,12 @@ class App extends Component{
 getUsers=()=>{
   fetch(`${config.API_ENDPOINT}/users`,{
     method:'GET',
-    header:{
+    headers:{
       'content-type':'application/json',
-     // 'Authorization':`Bearer ${config.API_KEY}`
-    },
-  })
+      'Authorization':`Bearer ${config.API_KEY}`      
+    },      
+  })  
+  
   .then(res=>{
     if(!res.ok){
       throw new Error('Something went wrong, please try again')
