@@ -17,10 +17,8 @@ class NewPost extends Component{
   constructor(props){
     super(props);
     this.state={
-      error:null,
-      submitDisabled:true,
-      fieldType:'recipe',
-      areTypeSpecificFieldsVisible:{'title':false, 'author':false, 'by':false,'link':false,'content':true},
+      error:null,      
+      fieldType:'',      
       inputs:{
       title:{value:"",touched:false},
       author:{value:"",touched:false},
@@ -33,12 +31,9 @@ class NewPost extends Component{
   }
   //updates the fields displayed depending on the type of post
   updateFields=(fieldTypeSelected)=>{
-    const {areTypeSpecificFieldsVisible} = this.state;
+    
     const {inputs} = this.state
-   //first resetting fields to not display
-    Object.keys(areTypeSpecificFieldsVisible).forEach(key => {
-       areTypeSpecificFieldsVisible[key]=false
-    });
+   
   //resetting any touched input values to false
     Object.keys(inputs).forEach(key => {
      inputs[key].touched=false;
@@ -47,75 +42,30 @@ class NewPost extends Component{
     Object.keys(inputs).forEach(key => {
      inputs[key].value="";
     });
-    inputs.post_image.file="";
-        if(fieldTypeSelected==='book'){
-            areTypeSpecificFieldsVisible['title']=true;
-            areTypeSpecificFieldsVisible['by']=true;
-            areTypeSpecificFieldsVisible['content']=true;
-            areTypeSpecificFieldsVisible['link']=true;
-        }
-        else if(fieldTypeSelected==='lifestyle'){
-            areTypeSpecificFieldsVisible['title']=true;
-            areTypeSpecificFieldsVisible['by']=true;
-            areTypeSpecificFieldsVisible['content']=true;
-        }
-        else if(fieldTypeSelected==='podcast'){
-            areTypeSpecificFieldsVisible['content']=true;
-            areTypeSpecificFieldsVisible['link']=true;
-            areTypeSpecificFieldsVisible['by']=true;
-            areTypeSpecificFieldsVisible['title']=true;
-        }
-        else if(fieldTypeSelected==='event'){
-            areTypeSpecificFieldsVisible['content']=true;
-            areTypeSpecificFieldsVisible['link']=true;
-            areTypeSpecificFieldsVisible['title']=true;        
-        }
-        else if(fieldTypeSelected==='recipe'){
-           areTypeSpecificFieldsVisible['title']=true;
-            areTypeSpecificFieldsVisible['by']=true;
-            areTypeSpecificFieldsVisible['content']=true;
-        }
+    
 
         //clear all form fields 
          this.refs.form.reset();
 
         this.setState({
             fieldType:fieldTypeSelected,
-            inputs:inputs,
-            submitDisabled:true,
-            areTypeSpecificFieldsVisible:areTypeSpecificFieldsVisible})
+            inputs:inputs,    
+            })
     }
 
   updateChange=(inputValue, id)=>{
     const {inputs} = this.state;
-        
+    
+    
     if(id!=='post_image'){
         inputs[id]={value:inputValue,touched:true}
      }
-     else if(id==='post_image'){        
+     else if(id==='post_image'){
+         
          inputs[id]={file:inputValue[0],touched:true}
      }
     this.setState({inputs:inputs})
-    this.checkDisableSubmit();
-  }
-
-  checkDisableSubmit(){    
-    if(this.state.inputs.post_image.touched){
-        this.setState({submitDisabled:false})
-    }
-    else{
-        if(this.state.fieldType === 'lifestyle' || this.state.fieldType === 'event' || this.state.fieldType === 'podcast') {
-        if( this.state.inputs.title.touched && this.state.inputs.link.touched && this.state.submitDisabled)
-        {this.setState({submitDisabled:false})}
-        }
-        else if(this.state.fieldType==='recipe' && this.state.inputs.content.touched && this.state.submitDisabled){
-        this.setState({submitDisabled:false})  
-        }
-        else if(this.state.fieldType==='book' && this.state.inputs.title.touched && this.state.inputs.author.touched && this.state.submitDisabled){
-            this.setState({submitDisabled:false})  
-        }  
-    }
-}
+  } 
 
 validateContent(){
     const content = this.state.inputs.content.value.trim();
@@ -163,7 +113,8 @@ handleSubmit=(e)=>{
            return res.json()
         })
         .then(res => {
-            newPostWithImage.image_path = res.data.image;            
+            newPostWithImage.image_path = res.data.image;
+            console.log(newPostWithImage)
            return  fetch(url, {
                 method: 'POST',
                 body: JSON.stringify(newPostWithImage),
@@ -231,9 +182,12 @@ fetch(url, {
 
 postData()
 {
+    console.log("Clicked!")
     const user = this.props.match.params.username;
+    console.log(user);
     const {inputs, fieldType}=this.state; 
-    //user_id, title, link, start_date,by,content, post_type    
+    //user_id, title, link, start_date,by,content, post_type
+    console.log(BASE_URL+'/posts/'+user);
     fetch(BASE_URL+'/posts/'+user, {
       method:'post',
       headers:{'Content-Type' : 'application/json'},
@@ -254,8 +208,7 @@ postData()
     })
     .catch(err => alert(err))
 }
-render(){
-    const { areTypeSpecificFieldsVisible } = this.state;
+render(){    
     const contentError = this.validateContent();
     const linkError = this.validateLink();
 
@@ -289,34 +242,28 @@ render(){
                         <h2>Create a new {this.state.fieldType} post</h2>
                     </div>
                     <div>
-                        <div className={`form-field-group field-title ${areTypeSpecificFieldsVisible['title'] ? "" : " hidden"}`}>
+                        <div className='form-field-group field-title'>
                             <label htmlFor="title">Title*</label>
                             <input 
                                 type="text" name="title" id="title" placeholder="A New Beginning"
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                         </div>
                         <div 
-                             className={`form-field-group field-author ${areTypeSpecificFieldsVisible['author'] ? "" : " hidden"}`}>
+                             className='form-field-group field-author'>
                             <label htmlFor="by">Author</label>
                             <input 
                                 type="text" name="by" id="by" placeholder="Maya Angelou"
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}/>
-                        </div>
-                        <div className={`form-field-group field-doctor ${areTypeSpecificFieldsVisible['doctor'] ? "" : " hidden"}`}>
-                            <label htmlFor="by">Nutritionist</label>
-                            <input 
-                                type="text" name="by" id="by" placeholder="Kimberly Snyder"
-                                onChange={e => this.updateChange(e.target.value, e.target.id)}/>
-                        </div>
+                        </div>                        
                         
-                        <div className={`form-field-group field-link ${areTypeSpecificFieldsVisible['link'] ? "" : " hidden"} `}>
+                        <div className='form-field-group field-link'>
                             <label htmlFor="link">Link*</label>
                             <input 
                                 type="url" name="link" id="link" placeholder="http://someamazingsite.com"
                                 onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                         </div>
                         {this.state.inputs.link.touched  && (<ValidationError message={linkError}/>)}
-                        <div className={`form-field-group field-content ${areTypeSpecificFieldsVisible['content'] ? "" : " hidden"} `}>
+                        <div className='form-field-group field-content'>
                             <label htmlFor="content">Content*</label>
                             <textarea
                                 type="textarea" name="content"
@@ -338,7 +285,10 @@ render(){
                     </div>
                         
                     <div className="form-buttons button-row">    
-                        <button type="button" onClick={()=>this.postData()}                        >
+                        <button 
+                            type="button"
+                            onClick={()=>this.postData()}
+                        >
                             Post</button>
                         <button type="reset">Cancel</button>
                     </div>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Link} from 'react-router-dom';
 import IconButton from './IconButton';
 import { faPlusSquare} from '@fortawesome/free-regular-svg-icons';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 class Nav extends Component {
     render() { 
@@ -24,9 +24,9 @@ class Nav extends Component {
                   link={'/'}
                   ariaLabel={`learn more page`}
                   displayChange={'all'}
-                  iconType={faHome}
+                  iconType={faSignOutAlt}
                   buttonColor={'orange-background'}
-                  tooltipMessage = {'learn more about AIP'}
+                  tooltipMessage = {'sign-out'}
                   tooltipClass={'bottom-farleft'}
               />
           </nav>)}      
