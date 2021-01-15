@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import { Link} from 'react-router-dom';
 import IconButton from './IconButton';
 import { faPlusSquare} from '@fortawesome/free-regular-svg-icons';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 class Nav extends Component {
     render() { 
@@ -11,7 +10,7 @@ class Nav extends Component {
        List = ( 
           <nav className="main-nav nav">
               <IconButton
-                  link={`/${this.props.user}/new-post`}
+                  link={`/new-post`}
                   ariaLabel={`add new post`}
                   displayChange={'all'}
                   iconType={faPlusSquare}
@@ -19,14 +18,14 @@ class Nav extends Component {
                   tooltipMessage = {'create a new post'}
                   tooltipClass={'bottom-farright'}
               />
-              <h1><Link className="site-heading" to={`/dashboard`}>The Autoimmune Solution</Link></h1>
+              <h1>The Autoimmune Solution</h1>
               <IconButton
                   link={'/'}
                   ariaLabel={`learn more page`}
                   displayChange={'all'}
-                  iconType={faSignOutAlt}
+                  iconType={faHome}
                   buttonColor={'orange-background'}
-                  tooltipMessage = {'sign-out'}
+                  tooltipMessage = {'see all posts'}
                   tooltipClass={'bottom-farleft'}
               />
           </nav>)}      

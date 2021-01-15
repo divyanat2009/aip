@@ -17,6 +17,8 @@ module.exports = {
       }],
 
     bookmarks:[{
+      "post_id":1,
+         "user_id":1,
       "username":"divya",
       "title":"Great Food, All Day Long",
       "link":"https://www.penguinrandomhouse.com/books/3918/great-food-all-day-long-by-maya-angelou/",
@@ -33,14 +35,14 @@ module.exports = {
     posts:[ {
       "post_id":1,
       "user_id":1,
-      "username":"divya",
-      "title":"Cheesy Cauliflower Bake",
-      "content":"If you’re looking for the ultimate comfort food side dish, look no further than this dairy-free ‘Cheesy’ Cauliflower Bake.",
-      "type":"recipe",
-      "by":"Amy Myers",
-      "link":"https://www.amymyersmd.com/recipe/cheesy-cauliflower-bake/",        
-      "event_dates":"",        
-      "date_created":"December 29th 2020"           
+   "username":"divya",
+   "title":"Great Food, All Day Long",
+   "link":"https://www.penguinrandomhouse.com/books/3918/great-food-all-day-long-by-maya-angelou/",
+   "event_dates":"",
+   "by":"Maya Angelou",
+   "content":"COOK SPLENDIDLY, EAT SMART: A COOKBOOK.",
+   "type":"lifestyle",
+   "date_created":"January 5th 2021" 
      },{
       "post_id":9,
       "user_id":3,
@@ -75,7 +77,7 @@ module.exports = {
       "event_dates":"",
       "date_created":"December 28th 2020"            
    },{
-      "post_id":2,
+      "post_id":10,
       "user_id":3,
       "username":"divyanat", 
       "title":"The Rheumatoid Solutions Podcast",

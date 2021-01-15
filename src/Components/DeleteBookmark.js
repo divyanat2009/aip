@@ -1,24 +1,25 @@
 import React from 'react';
 import Context from '../Context';
-import config from '../config';
-import Tooltip from './Tooltip';
+import config from '../config.js';
+import Tooltip from './Tooltip'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusSquare } from '@fortawesome/free-regular-svg-icons';
 import { faBookmark} from '@fortawesome/free-solid-svg-icons';
 
 function deleteBookmarkRequest(bookmarkId, callback){
-    let url = `${config.API_ENDPOINT}/bookmarks/${bookmarkId}`;
+   // let url = `${config.API_DEV_ENDPOINT}/bookmarks/${bookmarkId}`;
+    let url = `${config.API_ENDPOINT}/bookmarks`;
     fetch(url,{
         method: 'DELETE',
         headers: {
         'content-type': 'application/json',
-        // 'Authorization': `Bearer ${config.API_KEY}`
+        'Authorization': `Bearer ${config.API_KEY}`
         },
     })
    .then(res=>{
         if(!res.ok){
         throw new Error('Something went wrong, please try again')
-        }        
+        }
         return 
     })
     .then(() => {
@@ -33,11 +34,11 @@ function deleteBookmarkRequest(bookmarkId, callback){
 }
 
 export default function DeleteBookmark(props){
- //change the icon depending if on the dashboard or bookmark page
- let icon=faBookmark
- if(props.displayType==='bookmarks'){
-     icon=faMinusSquare
- }    
+    //change the icon depending if on the dashboard or bookmark page
+    let icon=faBookmark
+    if(props.displayType==='bookmarks'){
+        icon=faMinusSquare
+    }
     return(
         <Context.Consumer>
             {(context)=>(

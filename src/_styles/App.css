@@ -144,19 +144,25 @@ header{
 .learnmore h2{  
   color:white;
   text-align: left;
+  font-size: 20px;
 }
 
 .learnmore p, .about p {
   text-align: left;
   max-width: 300px;
   margin: 35px auto 10px;  
+  
 }
-
+.about h2{
+  font-size: 22px;
+}
 .individual-post-container{
   padding:10px;
   text-align: left;
 }
-
+.landing-page p{
+margin-bottom: 50px;
+}
 .individual-post-container:nth-child(even){
   background-color:#fff;
   color:#000;
