@@ -16,7 +16,7 @@ class NewPost extends Component{
     static contextType = OpenUpContext;
 
     constructor(props){
-        super(props);
+        super(props)
         this.state={
             error:null,
             submitDisabled:true,
@@ -230,7 +230,7 @@ class NewPost extends Component{
                     by:byValue,
                     image_path:''
                 }
-            this.context.showLoadAnimation();
+            
             fetch(url, {
                     method: 'POST',
                     body: JSON.stringify(newPost),
@@ -250,12 +250,12 @@ class NewPost extends Component{
                     return res.json()
                     })
                     .then(post => {
-                    this.context.showLoadAnimation();
+                    
                     this.props.history.push('/dashboard')
                     this.context.addPost(newPost)
                     })
                     .catch(error => {
-                    this.setState({ error })
+                    //this.setState({ error })
                     })
         }//end of else if
     }
