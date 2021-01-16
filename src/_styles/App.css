@@ -260,7 +260,7 @@ button.delete-button:hover,.new-post button:hover {
 
 .button-icon-link{
   margin: 5px auto;
-  background-color: #e6ca7c;
+  background-color: #a989ac;
   display: block;
   padding: 1px 6px;
   width: 45px;
@@ -315,7 +315,7 @@ ul{
 
 svg.filter-icon path {
   fill:#152604;
-  fill:#480000;
+  fill:#460137;
 }
 
 .icon-button-container {
@@ -349,7 +349,7 @@ svg.inline-block-icon {
 }
 
 :focus {
-  outline: #d8a76c auto 1px;
+  outline: #590f5c auto 1px;
 }
 
 .fine-print{
