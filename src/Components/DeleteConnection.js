@@ -1,15 +1,17 @@
 import React from 'react';
 import OpenUpContext from '../OpenUpContext.js';
+import { GetConnectionId } from '../Functions/GetConnectionId'
 import config from '../config.js';
 import Tooltip from './Tooltip'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faMinusSquare } from '@fortawesome/free-regular-svg-icons';
-import { faBookmark} from '@fortawesome/free-solid-svg-icons';
+import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
-function deleteBookmarkRequest(bookmarkId, callback){
-   // let url = `${config.API_DEV_ENDPOINT}/bookmarks/${bookmarkId}`;
-    let url = `${config.API_ENDPOINT}/bookmarks/${bookmarkId}`;
-    fetch(url,{
+function deleteConnectionRequest(userId,connections, callback){
+   
+    let connectionId = GetConnectionId(userId, connections);
+   // let url = `${config.API_DEV_ENDPOINT}/connections/${connectionId}`;
+     let url = `${config.API_ENDPOINT}/connections/${connectionId}`;
+     fetch(url,{
         method: 'DELETE',
         headers: {
         'content-type': 'application/json',
@@ -25,7 +27,8 @@ function deleteBookmarkRequest(bookmarkId, callback){
     .then(() => {
       // call the callback when the request is successful
       // this is where the App component can remove it from state
-       callback(bookmarkId)
+       callback()
+       
     })
     .catch(error => {
         console.log(`there was an error`)
@@ -33,22 +36,16 @@ function deleteBookmarkRequest(bookmarkId, callback){
     })
 }
 
-export default function DeleteBookmark(props){
-    //change the icon depending if on the dashboard or bookmark page
-    let icon=faBookmark
-    if(props.displayType==='bookmarks'){
-        icon=faMinusSquare
-    }
+export default function DeleteConnection(props){
     return(
         <OpenUpContext.Consumer>
             {(context)=>(
-                <button className="bookmark-button post-icon delete-icon"
+                <button className="connection-button post-icon delete-icon"
                     onClick={()=>{
-                        deleteBookmarkRequest(props.bookmarkId,
-                            context.deleteBookmark);
+                        deleteConnectionRequest(props.userId,context.connections,context.updateConnections);
                     }}>
-                   <FontAwesomeIcon icon={icon} />
-                   <Tooltip message={'Remove this post from your bookmarks'} positionClass={'top-farright'}/>
+                   <FontAwesomeIcon icon={faUserFriends} />
+                   <Tooltip message={'Remove this user from your connections'} positionClass={'bottom-farleft'}/>
                 </button>
             )}
         </OpenUpContext.Consumer>

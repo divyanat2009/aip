@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Nav from './Nav.js';
 import FilterButtons from './FilterButtons.js';
 import FilterButtonsForm from './FilterButtonsForm.js';
-import Context from '../Context'
+import OpenUpContext from '../OpenUpContext'
 import '../_styles/Form.css';
 import ValidationError from './ValidationError'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,14 +13,14 @@ import { faPodcast, faMusic, faBookOpen,faUser, faHome, faInfo} from '@fortaweso
 
 class NewPost extends Component{
 
-    static contextType = Context;
+    static contextType = OpenUpContext;
 
     constructor(props){
         super(props);
         this.state={
             error:null,
             submitDisabled:true,
-            fieldType:'reflection',
+            fieldType:'',
             areTypeSpecificFieldsVisible:{'title':false, 'author':false,'artist':false,'link':false,'content':true, 'descrip':false},
             inputs:{
             title:{value:"",touched:false},
@@ -59,8 +59,8 @@ class NewPost extends Component{
             areTypeSpecificFieldsVisible['author']=true;
             areTypeSpecificFieldsVisible['descrip']=true;
         }
-        else if(fieldTypeSelected==='lifestyle'){
-            areTypeSpecificFieldsVisible['author']=true;
+        else if(fieldTypeSelected==='music'){
+            areTypeSpecificFieldsVisible['artist']=true;
             areTypeSpecificFieldsVisible['link']=true;
             areTypeSpecificFieldsVisible['title']=true;
         }
@@ -78,7 +78,8 @@ class NewPost extends Component{
             areTypeSpecificFieldsVisible['content']=true;
         }
 
-        this.$refs.form.reset()
+        //clear all form fields 
+         this.refs.form.reset();
 
         this.setState({
             fieldType:fieldTypeSelected,
@@ -117,7 +118,7 @@ class NewPost extends Component{
             if( this.state.inputs.title.touched && this.state.inputs.link.touched && this.state.submitDisabled)
             {this.setState({submitDisabled:false})}
             }
-            else if(this.state.fieldType==='reflection' && this.state.inputs.content.touched && this.state.submitDisabled){
+            else if(this.state.fieldType==='recipe' && this.state.inputs.content.touched && this.state.submitDisabled){
             this.setState({submitDisabled:false})  
             }
             else if(this.state.fieldType==='book' && this.state.inputs.title.touched && this.state.inputs.author.touched && this.state.submitDisabled){
@@ -151,12 +152,76 @@ class NewPost extends Component{
         if(fieldType==='book'){
             byValue = inputs.author.value
         }
-        else if(fieldType==='lifestyle'){
+        else if(fieldType==='music'){
             byValue = inputs.artist.value
         }
 
-        
-                let post = {
+        let newPostWithImage = {
+            user_id:1,
+            post_type:fieldType,
+            title:inputs.title.value,
+            link:inputs.link.value,
+            content:inputs.content.value,
+            by:byValue,
+            image_path:''
+        }
+        //let url = `${config.API_DEV_ENDPOINT}/posts`
+        let url = `${config.API_ENDPOINT}/posts`
+
+        if(inputs.post_image.file){
+            let formData = new FormData();
+            const fileField = inputs.post_image.file;
+            formData.append('image', fileField);
+
+            //let image_url = `${config.API_DEV_ENDPOINT}/upload`;
+           let image_url = `${config.API_ENDPOINT}/upload`;
+           
+           this.context.showLoadAnimation();
+
+            fetch(image_url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                   // 'content-type': 'application/json',
+                    'Authorization': `Bearer ${config.API_KEY}`
+                   },
+                })  
+            .then(res => {
+                return res.json()
+            })
+            .then(res => {
+                newPostWithImage.image_path = res.data.image;
+               return  fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(newPostWithImage),
+                    headers: {
+                        'content-type': 'application/json',
+                        'Authorization': `Bearer ${config.API_KEY}`
+                       },
+                  })
+            })
+           .then(resp => {
+                      if (!resp.ok) {
+                        // get the error message from the response,
+                        return resp.json().then(error => {
+                          // then throw it
+                          throw error
+                        })
+                      }
+                      return resp.json()
+                    })
+            .then(post => {
+                      this.context.showLoadAnimation();
+                      this.props.history.push('/dashboard')
+                      this.context.addPost(newPostWithImage)
+            })
+            .catch(error => {
+                        this.setState({ error })
+            })
+        }//end of if statement
+       
+         else if(!inputs.post_image.file){
+                let newPost = {
                     user_id:1,
                     post_type:fieldType,
                     title:inputs.title.value,
@@ -165,37 +230,36 @@ class NewPost extends Component{
                     by:byValue,
                     image_path:''
                 }
-                let url = `${config.API_ENDPOINT}/posts`
-                fetch(url,{
-                    method:'GET',  
-                    body: JSON.stringify(post),      
-                    headers:{
-                    'content-type':'application/json',
-                    'Authorization':`Bearer ${config.API_KEY}`
-                    },
+            this.context.showLoadAnimation();
+            fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify(newPost),
+                    headers: {
+                        'content-type': 'application/json',
+                        'Authorization': `Bearer ${config.API_KEY}`
+                       },
                 })
-                .then(res=>{
-                    if(!res.ok){
-                    throw new Error('Something went wrong, please try again')
+                    .then(res => {
+                    if (!res.ok) {
+                        // get the error message from the response,
+                        return res.json().then(error => {
+                        // then throw it
+                        throw error
+                        })
                     }
                     return res.json()
-                })
-                .then(postdata=>{
-                  
+                    })
+                    .then(post => {
+                    this.context.showLoadAnimation();
                     this.props.history.push('/dashboard')
-                    this.context.addPost(postdata)
-                  
-                })
-                .catch(err=>{
-                  this.setState({
-                    error:err.message
-                  });
-                })
-            }
-    
-    handleClickCancel = () => {
-        this.props.history.push('/dashboard')
-        };  
+                    this.context.addPost(newPost)
+                    })
+                    .catch(error => {
+                    this.setState({ error })
+                    })
+        }//end of else if
+    }
+
     render(){
 
         const { areTypeSpecificFieldsVisible } = this.state;
@@ -212,7 +276,7 @@ class NewPost extends Component{
                 <main>
                 <FilterButtonsForm
                         updateFields = {this.updateFields}
-                        buttonInfo={[{ariaLabel:'fields to create new reflection post',icon_type:faLightbulb,field_type:'reflection',tooltipMessage:'create a reflection post',tooltipClass:'bottom-farright'},{ariaLabel:'fields to create new book post',icon_type:faBookOpen, field_type:'book',tooltipMessage:'create a book post',tooltipClass:'bottom-right'},
+                        buttonInfo={[{ariaLabel:'fields to create new recipe post',icon_type:faLightbulb,field_type:'recipe',tooltipMessage:'create a recipe post',tooltipClass:'bottom-farright'},{ariaLabel:'fields to create new book post',icon_type:faBookOpen, field_type:'book',tooltipMessage:'create a book post',tooltipClass:'bottom-right'},
                         {ariaLabel:'fields to create new podcast post',icon_type:faPodcast,field_type:'podcast',tooltipMessage:'create a podcast post',tooltipClass:'bottom-center'},
                         {ariaLabel:'music posts',icon_type:faMusic, field_type:'music',tooltipMessage:'create a music post',tooltipClass:'bottom-left'},
                         {ariaLabel:'event posts',icon_type:faCalendarAlt,field_type:'event' ,tooltipMessage:'create an event post',tooltipClass:'bottom-farleft'}]}
@@ -229,14 +293,14 @@ class NewPost extends Component{
                             <div className={`form-field-group field-title ${areTypeSpecificFieldsVisible['title'] ? "" : " hidden"}`}>
                                 <label htmlFor="title">Title*</label>
                                 <input 
-                                    type="text" name="title" id="title" placeholder="A New Earth"
+                                    type="text" name="title" id="title" placeholder="The Autoimmune Solution"
                                     onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                             </div>
                             <div 
                                  className={`form-field-group field-author ${areTypeSpecificFieldsVisible['author'] ? "" : " hidden"}`}>
                                 <label htmlFor="by">Author</label>
                                 <input 
-                                    type="text" name="by" id="by" placeholder="Eckhart Tolle"
+                                    type="text" name="by" id="by" placeholder="Amy Myers"
                                     onChange={e => this.updateChange(e.target.value, e.target.id)}/>
                             </div>
                             <div className={`form-field-group field-artist ${areTypeSpecificFieldsVisible['artist'] ? "" : " hidden"}`}>
@@ -269,16 +333,7 @@ class NewPost extends Component{
                                     />
                             </div>
                             {this.state.inputs.content.touched  && (<ValidationError message={contentError}/>)}
-                            <div className="form-field-group field-img">
-                                <label htmlFor="post-image">Upload Screenshot</label>
-                                <input
-                                    type="file" name="post_image"
-                                    accept=".png,.jpg,.gif.bmp, .jpeg"
-                                    id="post_image"
-                                    alt="user-uploaded-image"
-                                    onChange={e => this.updateChange(e.target.files, e.target.id)}
-                                    />
-                            </div>
+                           
                         </div>
                             
                         <div className="form-buttons button-row">    
@@ -290,9 +345,9 @@ class NewPost extends Component{
                                 }
                             >
                                 Post</button>
-                            <button type="reset" onClick={this.handleClickCancel}>Cancel</button>
+                            <button type="reset">Cancel</button>
                         </div>
-                        <p className="form-disclaimer">We realize that what constitutes postivity is subjective. Please know we reserve the right to remove any post that we do not find meets our guidelines. You are welcome to dispute any removed post and share your feelings regarding it.  You also are always welcome to decide to no longer use our app. Thank you for understanding!</p>  
+                       
                     </form>
                     <FilterButtons
                         buttonInfo={[{ariaLabel:'all users',icon_type:faHome, link:'/dashboard',display_change:'allUsers',tooltipMessage:'view posts',tooltipClass:'top-farright'},

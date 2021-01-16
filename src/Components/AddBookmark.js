@@ -1,5 +1,5 @@
 import React from 'react';
-import Context from '../Context';
+import OpenUpContext from '../OpenUpContext.js';
 import config from '../config.js';
 import Tooltip from './Tooltip'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,12 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark} from '@fortawesome/free-solid-svg-icons';
 
 function addBookmarkRequest(allPostInfo, currentUserId, callback){
-    let newBookmarkPost = allPostInfo;
     let newBookmark = {
         user_id:currentUserId,
-        post_id:allPostInfo.post_id,
+        post_id:allPostInfo.post_id
     }
-    
+    let newBookmarkPost = allPostInfo
    // let url = `${config.API_DEV_ENDPOINT}/bookmarks`;
     let url = `${config.API_ENDPOINT}/bookmarks`;
     fetch(url,{
@@ -46,11 +45,11 @@ function addBookmarkRequest(allPostInfo, currentUserId, callback){
 
 export default function AddBookmark(props){
     return(
-        <Context.Consumer>
+        <OpenUpContext.Consumer>
             {(context)=>(
                 <button className="bookmark-button post-icon"
                     onClick={()=>{
-                        addBookmarkRequest(props.allPostInfo, props.currentUserId,
+                        addBookmarkRequest(props.allPostInfo,props.currentUserId,
                             context.addBookmark);
                     }}>
                    <FontAwesomeIcon icon={faBookmark} />
@@ -58,6 +57,6 @@ export default function AddBookmark(props){
                 </button>
             )}
 
-        </Context.Consumer>
+        </OpenUpContext.Consumer>
     )
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Context from '../Context';
+import Context from '../OpenUpContext';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from './Tooltip';

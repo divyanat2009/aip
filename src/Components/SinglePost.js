@@ -2,19 +2,19 @@ import React, { Component } from 'react';
 import '../libraries/fontawesome.js';
 import '../_styles/posts.css';
 import DeletePost from'./DeletePost';
-
-import AddBookmark from './AddBookmark';
-
-import DeleteBookmark from './DeleteBookmark.js';
-import UpdateBookmark from './UpdateBookmark'
-import Context from '../Context';
-import { isCurrentlyBookmarked } from '../Functions/FilterResults'
+import DeleteConnection from './DeleteConnection'
+//import AddBookmark from './AddBookmark';
+import AddConnection from './AddConnection'
+//import DeleteBookmark from './DeleteBookmark.js';
+//import UpdateBookmark from './UpdateBookmark'
+import OpenUpContext from '../OpenUpContext.js';
+//import { isCurrentlyBookmarked } from '../Functions/GetConnectionId'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
-import { faPodcast, faMusic, faBookOpen, faHeartbeat, faSeedling} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faLightbulb } from '@fortawesome/free-regular-svg-icons';
+import { faPodcast, faMusic, faBookOpen} from '@fortawesome/free-solid-svg-icons';
 
 class SinglePost extends Component{
-    static contextType=Context;
+    static contextType=OpenUpContext;
 
     static defaultProps = {
         history: {
@@ -27,30 +27,30 @@ class SinglePost extends Component{
 
     render(){
 
-        const{post_id, post_type, title, by, link, content, username, bookmark_content, bookmark_id, image_path} = this.props;
-        const allPostInfo = this.props.postInfo;
+        const{post_id, post_type, title, by, link, content, username, user_id,  image_path} = this.props;
+        //const allPostInfo = this.props.postInfo;
         const currentUserId = this.context.currentUserInfo.user_id;
         let listItem ='';
         let button ='';
         let form ='';
         let icon =faMusic;
         let uploadedImage ='';
-        let bookmarkButton ='';
-        
+        //let bookmarkButton ='';
+        let connectionButton ='';
         let currentUser = this.context.currentUserInfo.username;
         let currentDisplay= this.context.currentDisplay;
-        
-        
-        let bookmarked = false;
+        let currentConnectionIds = this.context.connectionUserIds;
+        let connection = -1;
+        //let bookmarked = false;
 
-        if(post_type==='lifestyle'){
-            icon = faHeartbeat
+        if(post_type==='music'){
+            icon = faMusic
         }
         else if(post_type==='event'){
             icon = faCalendarAlt
         }
-        else if(post_type==='recipe'){
-            icon = faSeedling
+        else if(post_type==='reflection'){
+            icon = faLightbulb
         }
         else if(post_type==='podcast'){
             icon = faPodcast
@@ -61,11 +61,34 @@ class SinglePost extends Component{
 
 
         //determining if the user of post is a current connection
+        connection = currentConnectionIds.findIndex(id=>id===user_id)
+        //bookmarked = isCurrentlyBookmarked(post_id, this.context.bookmarks);
         
-        bookmarked = isCurrentlyBookmarked(post_id, this.context.bookmarks);
-        
+        if(currentDisplay.dashboard.current_user==='followees'&& username!==currentUser){
+            connectionButton = 
+                    <DeleteConnection
+                        userId={user_id}
+                        currentUserId ={currentUserId}
+                        push={this.props.history.push}
+                    />  
+        }
+        else if(username!==currentUser && connection !== -1){
+            connectionButton = 
+                <DeleteConnection
+                    userId={user_id}
+                    currentUserId ={currentUserId}
+                    push={this.props.history.push}
+                /> 
+        }
+        else if(username!==currentUser && connection === -1){
+            connectionButton = 
+            <AddConnection
+                    userId={user_id}
+                    currentUserId ={currentUserId}
+                />
+        }
        
-        if(this.props.postsToDisplay ==='bookmarks' ){
+        /*if(this.props.postsToDisplay ==='bookmarks' ){
             bookmarkButton = 
                 <DeleteBookmark
                     bookmarkId={bookmark_id}
@@ -74,7 +97,7 @@ class SinglePost extends Component{
                     push={this.props.history.push}
                     displayType = {this.props.postsToDisplay}
                 />  
-                                          
+                connectionButton = ''                           
         }
         else if(this.props.postsToDisplay ==='posts' && bookmarked){
             bookmarkButton = 
@@ -96,7 +119,7 @@ class SinglePost extends Component{
                     currentUserId ={currentUserId}
                     push={this.props.history.push}
                 />
-        }
+        }*/
         if(username===currentUser && currentDisplay.dashboard.current_user==='user'){
             button = <DeletePost
                         postId={post_id}/>
@@ -107,18 +130,18 @@ class SinglePost extends Component{
                                 alt={`user uploaded - ${post_type==='reflection' ? content : title}`}/>
                             </span>
         }
-        if(this.props.postsToDisplay==='bookmarks'){
+        /*if(this.props.postsToDisplay==='bookmarks'){
             form = <UpdateBookmark 
                         bookmark_content={bookmark_content}
                         bookmark_id={bookmark_id}/>
-        }
-            listItem = (<li className={`single-post ${post_type}-post ${bookmarked ? "bookmarked" : "not-bookmarked"}`} key={this.props.post_id}>
+        }*/
+            listItem = (<li className='single-post'>
                <div className="post-info">
                    <div className="top-post-icons">
                         <span className="post-span post-icon"><FontAwesomeIcon icon={icon} /></span>
                         <div className="user-info">
                             <span className="post-span post-username">{username}</span>
-                            
+                            {connectionButton}
                         </div>
                     </div>
                     {uploadedImage}
@@ -128,7 +151,7 @@ class SinglePost extends Component{
                     {link ? <span className="post-span post-link"><a href={link}>{ post_type==='event' ?`Link to learn more` : `Link to listen`}</a></span> : ""}
                 </div>
                 
-                {bookmarkButton}
+                
                 {button}
                 {form}
             </li>)
