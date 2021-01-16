@@ -28,7 +28,7 @@ class MyAccount extends Component{
                     
                     <div className="form-field-group">
                         <label htmlFor="username">UserName</label>
-                        <input placeholder="user123" type="username" name='username' id='username'/>
+                        <input placeholder="user123" type="text" autoComplete="username" name='username' id='username'/>
                     </div>
                     <div className="form-field-group">
                         <label htmlFor="password">Password</label>
