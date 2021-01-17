@@ -4,12 +4,12 @@ import Home from './Components/Home.js';
 import Dashboard from './Components/Dashboard.js';
 import UserSignUp from './Components/UserSignUp.js';
 import NewPost from './Components/NewPost.js';
+import BookmarkPage from './Components/BookmarkPage.js';
 import MyAccount from './Components/MyAccount.js';
 import OpenUpContext from './OpenUpContext.js';
 import './_styles/App.css';
 import data from './data.js';
 import config from './config.js';
-
 
 
 class App extends Component{
@@ -21,7 +21,7 @@ class App extends Component{
                         "fullname":"Divya Natarajan"},
       posts:data.posts,
       //posts of logged in user's bookmarks with the bookmark_content and bookmark_id
-      //bookmarks:data.bookmarks,
+      bookmarks:data.bookmarks,
       connections:data.connections,
       users:data.users,
       //of current user
@@ -32,7 +32,8 @@ class App extends Component{
         dashboard:{current_user:'followees', current_post_type:'all'},
         bookmark_display:{current_user:'followees', current_post_type:'all'}
       },
-      
+      loadAnimation:false,
+      intialRequest:true,
     }//end of state
 
   }
@@ -43,19 +44,26 @@ class App extends Component{
     let currentUserId = currentUserInfo.user_id;
      //change the posts displayed depending on type of user selected
       if(displayChange ==='allUsers' || displayChange ==='byUser' || displayChange === 'followees' || displayChange ==='user'){
-        currentDisplay.dashboard.current_user=displayChange;        
+        currentDisplay.dashboard.current_user=displayChange;
+        
         this.getPostsByUser(displayChange,currentUserId)
       }
       //changes the display for type of post
       if(displayChange ==='all' || displayChange ==='book' || displayChange === 'music' || displayChange ===
       'podcast' || displayChange === 'event' || displayChange === 'reflection'){
+
         currentDisplay.dashboard.current_post_type=displayChange;
       }
+
     this.setState({
-      currentDisplay:currentDisplay})    
+      currentDisplay:currentDisplay})
+    
   }
 
-/*
+  showLoadAnimation=()=>{
+    this.setState(prevState => ({ loadAnimation: !prevState.loadAnimation }));
+  }
+
   updateBookmark=(bookmarkId, updatedContent)=>{
     const { bookmarks } = this.state;
     bookmarks.map(bookmark=>{
@@ -64,7 +72,7 @@ class App extends Component{
          return bookmark}
         else {return bookmark}}
     )
-  }*/
+  }
 
   updateUsernameToDisplay=(name)=>{
     const {currentDisplay} = this.state;
@@ -80,7 +88,9 @@ class App extends Component{
     }
     this.setState({
       currentDisplay:currentDisplay})
+
   }
+
   addPost=(newPost)=>{
     this.setState({
       posts:[...this.state.posts, newPost]
@@ -88,20 +98,22 @@ class App extends Component{
     this.props.history.push('/dashboard')
   }
 
- /* getBookmarkPostIds=(bookmarks)=>{
+  getBookmarkPostIds=(bookmarks)=>{
     let currentUserBookmarkedPostIds = bookmarks.map(bookmark=>bookmark.post_id);
     return currentUserBookmarkedPostIds;
-  }*/
+  }
 
   getConnectionsIds=(connections)=>{
     let currentUserConnectionIds = connections.map(connection=>connection.followee_id);
     return currentUserConnectionIds;
   }
+
   updatePostsDisplayed=(posts)=>{
     this.setState({
       posts:posts
     })
   }
+
   deletePost=(postId)=>{
     const newPosts = this.state.posts.filter(post=>
       post.post_id !== postId)
@@ -110,7 +122,7 @@ class App extends Component{
     })
   }
 
- /* deleteBookmark=(bookmarkId)=>{
+  deleteBookmark=(bookmarkId)=>{
     const newBookmarkPosts = this.state.bookmarks.filter(bookmark=>
       bookmark.bookmark_id !== bookmarkId)
     this.setState({
@@ -122,7 +134,7 @@ class App extends Component{
     this.setState({
       bookmarks:[...this.state.bookmarks, newBookmarkPost]
     })
-  }*/
+  }
 
   updateConnections=()=>{
     //need to call api again after added connection in order to get all the posts for that user from the db
@@ -136,11 +148,13 @@ class App extends Component{
      let url = `${config.API_ENDPOINT}/posts`
    
     currentUserId = this.state.currentUserInfo.user_id
+    
     if(userToDisplay==='followees'){
-      //default
-     // url=`${config.API_DEV_ENDPOINT}/posts?userconnection=${currentUserId}`;
-      url=`${config.API_ENDPOINT}/posts?userconnection=${currentUserId}`;      
-    }    
+        //default
+       // url=`${config.API_DEV_ENDPOINT}/posts?userconnection=${currentUserId}`;
+        url=`${config.API_ENDPOINT}/posts?userconnection=${currentUserId}`;
+        
+    }
     else if(userToDisplay==='allUsers'){
       //url = `${config.API_DEV_ENDPOINT}/posts`
       url = `${config.API_ENDPOINT}/posts`
@@ -151,10 +165,12 @@ class App extends Component{
         url = `${config.API_ENDPOINT}/posts?userid=${currentUserId}`
       }
     else {
-        //url = `${config.API_DEV_ENDPOINT}/posts?userid=${userToDisplay}`
-        url = `${config.API_ENDPOINT}/posts?userid=${userToDisplay}`
-      }     
-    
+      //url = `${config.API_DEV_ENDPOINT}/posts?userid=${userToDisplay}`
+      url = `${config.API_ENDPOINT}/posts?userid=${userToDisplay}`
+    }
+    //only show load animation after initial server request*/
+    if(!this.state.intialRequest){
+       this.showLoadAnimation();}
     fetch(url,{
         method:'GET',
         headers:{
@@ -168,9 +184,12 @@ class App extends Component{
         }
         return res.json()
     })
-    .then(postdata=>{      
+    .then(postdata=>{
+      if(!this.state.intialRequest){this.showLoadAnimation();}
        this.updatePostType('all');
-       this.updatePostsDisplayed(postdata);       
+       this.updatePostsDisplayed(postdata);
+       //sets intialRequset to false so load animation will display on future requests*/
+       if(this.state.intialRequest){this.setState({intialRequest:false})}
     })
     .catch(err=>{
       this.setState({
@@ -208,7 +227,7 @@ getUsers=()=>{
   })
 }
 
-/*getBookmarks=(userid)=>{
+getBookmarks=(userid)=>{
  // let url = `${config.API_DEV_ENDPOINT}/posts?userbookmark=${userid}`;
   let url = `${config.API_ENDPOINT}/posts?userbookmark=${userid}`;
 
@@ -237,7 +256,7 @@ getUsers=()=>{
       error:err.message
     });
   })
-}*/
+}
 
 getConnections=()=>{
   //let url = `${config.API_DEV_ENDPOINT}/connections?userid=${this.state.currentUserInfo.user_id}`;
@@ -280,7 +299,7 @@ getConnections=()=>{
     //get posts on start of the current user's followees
     this.getPostsByUser('followees',this.state.currentUserInfo.user_id);  
     //get bookmarked posts of current user
-   // this.getBookmarks(this.state.currentUserInfo.user_id);
+    this.getBookmarks(this.state.currentUserInfo.user_id);
   }//end of cDM
 
 
@@ -288,7 +307,7 @@ getConnections=()=>{
     const contextValue={
       currentUserInfo:this.state.currentUserInfo,
       posts:this.state.posts,
-      //bookmarks:this.state.bookmarks,
+      bookmarks:this.state.bookmarks,
       connections:this.state.connections,
       connectionUserIds:this.state.connectionUserIds,
       users:this.state.users,
@@ -299,18 +318,36 @@ getConnections=()=>{
       getPostsByUser:this.getPostsByUser,
       updateUsernameToDisplay:this.updateUsernameToDisplay,
       deletePost:this.deletePost,
-      //addBookmark:this.addBookmark,
-      //updateBookmark:this.updateBookmark,
-      //deleteBookmark:this.deleteBookmark,
-      updateConnections:this.updateConnections,      
+      addBookmark:this.addBookmark,
+      updateBookmark:this.updateBookmark,
+      deleteBookmark:this.deleteBookmark,
+      updateConnections:this.updateConnections,
+      showLoadAnimation:this.showLoadAnimation,
     }
     return (
       <div className="App">
         <OpenUpContext.Provider value={contextValue}>
           
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/dashboard" component={Dashboard}/>          
-          <Route exact path="/user-signup" component={UserSignUp}/>
+          <Route
+            exact
+            path="/"
+            component={Home}
+          />
+          <Route
+            exact
+            path="/dashboard"
+            component={Dashboard}
+          />
+          <Route
+            exact
+            path="/bookmarks"
+            component={BookmarkPage}
+          />
+          <Route
+            exact
+            path="/user-signup"
+            component={UserSignUp}
+          />
           <Route
             exact
             path="/new-post"

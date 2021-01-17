@@ -3,10 +3,10 @@ import Nav from './Nav.js';
 import ResultList from './ResultList.js';
 import FilterButtons from './FilterButtons.js';
 
-
+import SearchRow from './SearchRow';
 import OpenUpContext from '../OpenUpContext.js';
 import { faCalendarAlt, faLightbulb, faIdCard  } from '@fortawesome/free-regular-svg-icons';
-import { faPodcast, faMusic, faBookOpen, faUser, faUsers, faUserFriends } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark,faPodcast, faMusic, faBookOpen, faUser, faUsers, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
 
 class Dashboard extends Component{
@@ -48,7 +48,7 @@ class Dashboard extends Component{
                             buttonInfo={[{ariaLabel:'all users',icon_type:faUsers, link:'/dashboard',display_change:'allUsers',tooltipMessage:'view all posts of all users', tooltipClass:'top-farright'},
                             {ariaLabel:'all users you follow',icon_type:faUserFriends, link:'/dashboard',display_change:'followees',tooltipMessage:'view all posts of your connections',tooltipClass:'top-right'},
                             {ariaLabel:'my posts',icon_type:faUser, link:'/dashboard', display_change:'user',tooltipMessage:'view all your posts',tooltipClass:'top-center'},
-                            
+                            {ariaLabel:'view bookmarks',icon_type:faBookmark, link:'/bookmarks', display_change:'all', tooltipMessage:'view all your bookmarked posts',tooltipClass:'top-left'},
                             {ariaLabel:'my account',icon_type:faIdCard, link:'/my-account',display_change:'all',tooltipMessage:'update your account info',tooltipClass:'top-farleft'}
                             ]}
                             rowPosition={'row-bottom'}
@@ -57,7 +57,7 @@ class Dashboard extends Component{
                         />
 
                     <section className="search-row-section">
-                        
+                        <SearchRow/>
                     </section>
                 
             </div>

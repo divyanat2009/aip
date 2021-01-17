@@ -4,7 +4,7 @@ export const GetConnectionId = (userId, connections) =>{
  }
  
  //function to determine of current post is bookmarked by current user
- /*export const isCurrentlyBookmarked=(post_id, bookmarks)=>{
+ export const isCurrentlyBookmarked=(post_id, bookmarks)=>{
      let bookmarkedPostIds = bookmarks.map(bookmark=>bookmark.post_id);
      let bookmarked = bookmarkedPostIds.findIndex(id => post_id===id);
      if(bookmarked!==-1){
@@ -17,4 +17,4 @@ export const GetConnectionId = (userId, connections) =>{
  const findBookmarkId=(post_id,bookmarks)=>{
      let bookmarkId = bookmarks.find(bookmark=>bookmark.post_id===post_id).bookmark_id;
      return bookmarkId
- }*/
+ }

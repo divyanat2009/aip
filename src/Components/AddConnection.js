@@ -13,7 +13,6 @@ function addConnectionRequest(userId, currentUserId, callback){
        }
     //let url = `${config.API_DEV_ENDPOINT}/connections`;
     let url = `${config.API_ENDPOINT}/connections`;
-    
    fetch(url,{
         method: 'POST',
         body:JSON.stringify(newConnection),
