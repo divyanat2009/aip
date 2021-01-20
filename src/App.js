@@ -50,7 +50,7 @@ class App extends Component{
       }
       //changes the display for type of post
       if(displayChange ==='all' || displayChange ==='book' || displayChange === 'music' || displayChange ===
-      'podcast' || displayChange === 'event' || displayChange === 'reflection'){
+      'podcast' || displayChange === 'event' || displayChange === 'recipe'){
 
         currentDisplay.dashboard.current_post_type=displayChange;
       }
