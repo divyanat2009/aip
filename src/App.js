@@ -327,7 +327,6 @@ getConnections=()=>{
     return (
       <div className="App">
         <OpenUpContext.Provider value={contextValue}>
-          
           <Route
             exact
             path="/"
@@ -358,7 +357,7 @@ getConnections=()=>{
             path="/my-account"
             component={MyAccount}
           />
-          
+         
         </OpenUpContext.Provider>
       </div>
     );

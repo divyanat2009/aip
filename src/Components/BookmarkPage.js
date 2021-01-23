@@ -20,8 +20,8 @@ class BookmarkPage extends Component{
                 />
                 <FilterButtons
                         buttonInfo={[{ariaLabel:'all types of posts',icon_type:'text-all', display_change:'all', link:'/dashboard',tooltipMessage:'view posts of all types',tooltipClass:'bottom-farright'},
-                        {ariaLabel:'reflection posts',icon_type:faLightbulb, link:'/bookmarks',
-                        display_change:'reflection', tooltipMessage:'view only reflection posts',tooltipClass:'bottom-right'},
+                        {ariaLabel:'recipe posts',icon_type:faLightbulb, link:'/bookmarks',
+                        display_change:'recipe', tooltipMessage:'view only recipe posts',tooltipClass:'bottom-right'},
                         {ariaLabel:'book posts',icon_type:faBookOpen, link:'/bookmarks',
                         display_change:'book', tooltipMessage:'view only book posts',tooltipClass:'bottom-center'},
                         {ariaLabel:'podcast posts',icon_type:faPodcast, link:'/bookmarks',

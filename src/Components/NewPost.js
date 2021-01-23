@@ -356,13 +356,13 @@ class NewPost extends Component{
                                 Post</button>
                             <button type="reset">Cancel</button>
                         </div>
-                        <p className="form-disclaimer">We realize that what constitutes postivity is subjective. Please know we reserve the right to remove any post that we do not find meets our guidelines. You are welcome to dispute any removed post and share your feelings regarding it.  You also are always welcome to decide to no longer use our app. Thank you for understanding!</p>  
+                          
                     </form>
                     <FilterButtons
                         buttonInfo={[{ariaLabel:'all users',icon_type:faHome, link:'/dashboard',display_change:'allUsers',tooltipMessage:'view posts',tooltipClass:'top-farright'},
                         {ariaLabel:'my posts',icon_type:faUser, link:'/dashboard', display_change:'user',tooltipMessage:'view your posts',tooltipClass:'top-center'},
                         {ariaLabel:'my account',icon_type:faIdCard, link:'/my-account',display_change:'all',tooltipMessage:'update your account info',tooltipClass:'top-left'},
-                        {ariaLabel:'learn more',icon_type:faInfo, link:'/learn-more', display_change:'all',tooltipMessage:'learn more about the Uplift app',tooltipClass:'top-farleft'}
+                        {ariaLabel:'learn more',icon_type:faInfo, link:'/learn-more', display_change:'all',tooltipMessage:'learn more about the AIP app',tooltipClass:'top-farleft'}
                         ]}
                         rowPosition={'row-bottom-all-screens'}
                     
