@@ -127,7 +127,7 @@ class SinglePost extends Component{
         if(image_path){
             uploadedImage = <span className="post-span post-image">
                              <img src={image_path} 
-                                alt={`user uploaded - ${post_type==='reflection' ? content : title}`}/>
+                                alt={`user uploaded - ${post_type==='recipe' ? content : title}`}/>
                             </span>
         }
         if(this.props.postsToDisplay==='bookmarks'){
@@ -148,7 +148,7 @@ class SinglePost extends Component{
                     {title ? <span className="post-span post-title">{title}</span> :""}
                     {by ? <span className="post-span post-artist">{by}</span> :""}
                     {content ? <span className="post-span post-content">{content}</span> :""}
-                    {link ? <span className="post-span post-link"><a href={link}>{ post_type==='event' ?`Link to learn more` : `Link to listen`}</a></span> : ""}
+                    {link ? <span className="post-span post-link"><a href={link}>{ post_type==='event' ?`Link to learn more` : `Link to learn more`}</a></span> : ""}
                 </div>
                 
                 {bookmarkButton}

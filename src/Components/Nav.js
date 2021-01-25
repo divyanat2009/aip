@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import IconButton from './IconButton.js';
 import { faPlusSquare} from '@fortawesome/free-regular-svg-icons';
-import { faInfo } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faInfo } from '@fortawesome/free-solid-svg-icons';
 
 
 class Nav extends Component{
@@ -31,6 +31,29 @@ class Nav extends Component{
                     tooltipClass={'bottom-farleft'}
                 />
             </nav>)}
+            if (this.props.pageType === 'newPost'){
+                List = ( 
+                   <nav className="main-nav nav">
+                       <IconButton
+                           link={'/dashboard'}
+                           ariaLabel={`add new post`}
+                           displayChange={'all'}
+                           iconType={faHome}
+                           buttonColor={'orange-background'}
+                           tooltipMessage = {'goto your dashboard'}
+                           tooltipClass={'bottom-farright'}
+                       />
+                       <h1>The Autoimmune Solution</h1>
+                       <IconButton
+                           link={'/'}
+                           ariaLabel={`learn more page`}
+                           displayChange={'all'}
+                           iconType={faInfo}
+                           buttonColor={'orange-background'}
+                           tooltipMessage = {'learn more about the AIP app'}
+                           tooltipClass={'bottom-farleft'}
+                       />
+                   </nav>)}
 
         if(this.props.pageType === 'home'){
          List = (
