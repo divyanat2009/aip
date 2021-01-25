@@ -1,5 +1,5 @@
 The Autoimmune Solution
-
+The app can be viewed here - https://theaipsolution.divyanat2009.vercel.app
 Overview — This repo contains the files for an app created to share recipes, books, podcasts, and events with people in the AIP community.
 
 Users can create posts, follow other users, and bookmark posts with their private comments. 
