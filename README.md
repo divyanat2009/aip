@@ -1,10 +1,9 @@
-# Getting Started with Create React App
-
-The Autoimmune Protocol
+The Autoimmune Solution
 
 Overview — This repo contains the files for an app created to share recipes, books, podcasts, and events with people in the AIP community.
 
-Users will be able to create an account and then post links to recipes; titles and short descriptions of books; titles, links, and short descriptions of podcasts; and links to events from the AIP community. 
+Users can create posts, follow other users, and bookmark posts with their private comments. 
+
 Screenshots of app:
 Landing page
 ![LandingPage](https://user-images.githubusercontent.com/69719463/105637250-1e9e5200-5e32-11eb-935b-625e4563e4c7.png)
